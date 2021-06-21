@@ -1,0 +1,37 @@
+version: '3'
+services: 
+    web:
+        image: nginx:lastest
+        volumes: 
+            - '.:/app'
+        ports:
+            - 80:80
+        networks: 
+            - webdis
+        depends_on: 
+            - redis
+            - php
+    php:
+        build:
+            context: ./docker
+            dockerfile: PHP.Dockerfile
+        volumes: 
+            - .:/app
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - 6379:6379
+        volumes: 
+            - webdisredis:/data
+        networks:
+            - webdis
+        healthcheck:
+            test: ["CMD", "redis-cli", 'ping']
+            retries: 3
+            timeout: 5s
+volumes: 
+    webdisredis:
+        driver: local
+networks:
+    webdis:
+        driver: bridge
