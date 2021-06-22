@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Webdis\\Webdis\\": "src/"
+            "Webdis\\": "src/",
+            "App\\": "app/"
         }
     },
     "authors": [
@@ -16,5 +17,8 @@
     ],
     "require": {
         "nesbot/carbon": "^2.49"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.1"
     }
 }
