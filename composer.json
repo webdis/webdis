@@ -14,5 +14,7 @@
             "email": "ecwebservices@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "nesbot/carbon": "^2.49"
+    }
 }

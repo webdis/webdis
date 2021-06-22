@@ -1,8 +1,9 @@
 version: '3'
 services: 
     web:
-        image: nginx:lastest
+        image: nginx:latest
         volumes: 
+            - ./docker/nginx.conf:/etc/nginx/conf.d/nginx.conf
             - '.:/app'
         ports:
             - 80:80
@@ -15,6 +16,8 @@ services:
         build:
             context: ./docker
             dockerfile: PHP.Dockerfile
+        networks: 
+            - webdis
         volumes: 
             - .:/app
     redis:
