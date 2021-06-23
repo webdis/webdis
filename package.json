@@ -1,0 +1,32 @@
+{
+  "name": "webdis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdis/webdis.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webdis/webdis/issues"
+  },
+  "homepage": "https://github.com/webdis/webdis#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.6",
+    "laravel-mix": "^6.0.24",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.2"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.3.3",
+    "alpinejs": "^3.1.0"
+  }
+}

@@ -1,0 +1,42 @@
+{
+    "name": "webdis/webdis",
+    "description": "A redis web admin",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elijah Cruz",
+            "email": "ecwebservices@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-package-cmd": [
+            "composer dump-autoload"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload"
+        ]
+    },
+    "autoload": {
+        "files": [
+            "src/Foundation/helpers.php"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "Webdis\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8",
+        "vlucas/phpdotenv": "^5.3",
+        "symfony/finder": "^5.3",
+        "symfony/console": "^5.3",
+        "symfony/http-kernel": "^5.3",
+        "symfony/routing": "^5.3",
+        "filp/whoops": "^2.13",
+        "jenssegers/blade": "^1.4"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.1"
+    }
+}
