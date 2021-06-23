@@ -1,10 +1,14 @@
 <?php
 
 use App\Kernel;
+use Delight\Cookie\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Webdis\Config\Config;
 use Webdis\Foundation\Application;
-use Webdis\View\View;
+
+if(empty(session_id())){
+    Session::start();
+}
 
 $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);

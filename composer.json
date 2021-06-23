@@ -37,7 +37,8 @@
         "jenssegers/blade": "^1.4",
         "symfony/filesystem": "^5.3",
         "symfony/psr-http-message-bridge": "^2.1",
-        "delight-im/cookie": "^3.4"
+        "delight-im/cookie": "^3.4",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "larapack/dd": "^1.1"

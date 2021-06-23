@@ -5,12 +5,14 @@ namespace Webdis\Foundation;
 use Delight\Cookie\Cookie;
 use Delight\Cookie\Session;
 use Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection as RoutingRouteCollection;
 use Webdis\Controller\Response as ControllerResponse;
+use Webdis\Foundation\Exceptions\ResponseNotValidException;
 use Webdis\Route\RouteCollection;
 use Webdis\View\View;
 
@@ -27,14 +29,13 @@ class Application implements HttpKernelInterface {
         $this->routes = $routes;
     }
 
-    public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true): Response
+    public function handle(Request $request, int $type = self::MAIN_REQUEST, bool $catch = true)
     {
         $symfonyRoute = new RoutingRouteCollection();
 
         $config = Dotenv::createImmutable($this->root);
         $config->load();
 
-        Session::start();
 
         if(!Cookie::exists('webdis_a'))
         {
@@ -103,7 +104,27 @@ class Application implements HttpKernelInterface {
             $result = $controller->{$getController[1]}();
         
         }
-            return new Response($result->content, $result->status, $result->headers);
+            if(is_a($result, 'Symfony\Component\HttpFoundation\RedirectResponse'))
+            {
+                return $result;
+            }
+            elseif(is_a($result, 'Webdis\Controller\Response'))
+            {
+                return new Response($result->content, $result->status, $result->headers);
+            }
+            else{
+                // Error 500
+                if( $_ENV['WEBKIT_DEBUG'] ){
+                    // Hope that whoops helped with there error and assume it didn't so we can run a server error
+                    Throw new ResponseNotValidException('Response Class is not valid', 500);
+
+                }
+                else{
+                    $view = new View('errors.generic', ['code' => 500, 'message' => 'Server Error']);
+                    return new Response($view->get(), 500);
+                }
+
+            }
     }
 
     public function terminate(Request $request, Response $response): void

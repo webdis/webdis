@@ -3,6 +3,7 @@
 namespace Webdis\View;
 
 use Jenssegers\Blade\Blade;
+use Webdis\Constant;
 
 class View {
 
@@ -14,7 +15,7 @@ class View {
 
     public $blade;
 
-    public function __construct(string $view, array $data = [], array $mergeData = [])
+    public function __construct(string $view, array $data = [])
     {
         $this->cacheFolder = dirname(__DIR__, 2) . '/storage/cache';
 
@@ -24,7 +25,15 @@ class View {
 
         $this->loadDirectives();
 
-        $this->view = $this->blade->make($view, $data, $mergeData)->render();
+        $config = $_ENV;
+
+        $configJson = json_encode($config);
+
+        $configObject = json_decode($configJson);
+
+        $version = Constant::VERSION;
+
+        $this->view = $this->blade->make($view, $data, ['config' => $configObject, 'version' => $version])->render();
     }
 
     public function get(){
