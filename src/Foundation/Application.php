@@ -114,7 +114,7 @@ class Application implements HttpKernelInterface {
             }
             else{
                 // Error 500
-                if( $_ENV['WEBKIT_DEBUG'] ){
+                if( $_ENV['WEBDIS_DEBUG'] ){
                     // Hope that whoops helped with there error and assume it didn't so we can run a server error
                     Throw new ResponseNotValidException('Response Class is not valid', 500);
 

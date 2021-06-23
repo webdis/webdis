@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Webdis\View\View;
 
 class DashboardController extends Controller
 {
@@ -13,7 +14,9 @@ class DashboardController extends Controller
             return new RedirectResponse('/');
         }
 
-        
+        $view = new View('dashboard.dashboard');
+
+        return $this->response($view->get());
     }
 
     public function runCommand(){

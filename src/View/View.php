@@ -42,8 +42,29 @@ class View {
 
     private function loadDirectives()
     {
-        $this->blade->directive('asset', function($asset){
+        $this->blade->directive('asset', function(string $asset){
             return "<?php echo $asset; ?>";
+        });
+
+        $this->blade->directive('component', function(string $location, array $data = []){
+            $componentBlade = new Blade($this->viewFolder, $this->cacheFolder);
+
+            $config = $_ENV;
+
+            $configJson = json_encode($config);
+
+            $configObject = json_decode($configJson);
+
+            $version = Constant::VERSION;
+
+            $location = str_replace('"', "", $location);
+            $location = str_replace("'", "", $location);
+
+            $location = "component.$location";
+
+            $component = $componentBlade->render($location, $data, ['config' => $configObject, 'version' => $version]);
+
+            return $component;
         });
     }
 
