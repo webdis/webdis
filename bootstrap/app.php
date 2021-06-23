@@ -1,5 +1,6 @@
 <?php
 
+use App\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 use Webdis\Config\Config;
 use Webdis\Foundation\Application;
@@ -17,7 +18,7 @@ $app = new Application(__DIR__, $routes);
 
 $config = new Config();
 
-$config->add('test', $app->root . '/config/doesnotexist.php');
+$kernel = new Kernel($config);
 
 $response = $app->handle($request);
 

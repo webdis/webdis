@@ -12,7 +12,7 @@
                 <div class="w-full mx-auto">
                     <img src="@asset('img/webdis-error.svg')" class="w-12 h-auto mx-auto" />
                 </div>
-                <p class="text-3xl font-bold text-center md:text-4xl">Error @yield('code'), @yield('message')</p>
+                <p class="pt-2 text-3xl font-bold text-center md:text-4xl">Error @yield('code'), @yield('message')</p>
                 <p class="text-2xl font-light text-center md:text-3xl">Webdis Version {{ \Webdis\Constant::VERSION }}</p>
             </div>
         </div>

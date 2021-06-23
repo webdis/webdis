@@ -2,11 +2,8 @@
 
 namespace Webdis\Config;
 
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemException;
-use League\Flysystem\Local\LocalFilesystemAdapter;
-use League\Flysystem\UnableToRetrieveMetadata;
-use Whoops\Run;
+use Illuminate\Filesystem\Filesystem;
+use Webdis\Config\Exceptions\ConfigFileNotFoundException;
 
 class ConfigLoader implements \Serializable
 {
@@ -18,13 +15,13 @@ class ConfigLoader implements \Serializable
     {
         $this->name = $name;
 
-        $filesystemAdapter = new LocalFilesystemAdapter(dirname(__DIR__, 2));
-        $filesystem = new Filesystem($filesystemAdapter);
+        $file = dirname(__DIR__, 2) . $file;
 
-        try{
-            $fileExists = $filesystem->fileExists($file);
-        } catch (FilesystemException | UnableToRetrieveMetadata $exception) {
-            throw new FilesystemException($exception);
+        $filesystem = new Filesystem();
+
+        if(!$filesystem->exists($file))
+        {
+            throw new ConfigFileNotFoundException("Config File " . $file . 'not found');
         }
     }
 
