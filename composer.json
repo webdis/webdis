@@ -34,7 +34,8 @@
         "symfony/http-kernel": "^5.3",
         "symfony/routing": "^5.3",
         "filp/whoops": "^2.13",
-        "jenssegers/blade": "^1.4"
+        "jenssegers/blade": "^1.4",
+        "league/flysystem": "^2.1"
     },
     "require-dev": {
         "larapack/dd": "^1.1"
