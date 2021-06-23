@@ -85,9 +85,9 @@ class LoginController extends Controller
 
         }
         else{
-            // $view = new View('wel[come', ['hasErrors' => true, 'errors', $validator->errors]);
+            $view = new View('welcome', ['hasErrors' => true, 'errors' => $validator->errors]);
             
-            return new RedirectResponse('/');
+            return $this->response($view->get());
         }
 
     }
