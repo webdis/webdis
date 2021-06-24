@@ -36,12 +36,19 @@ class Controller extends BaseController
         return Session::has('logged_in');
     }
 
-    public function getConnection() : array
+    public function getConnection(bool $array = false) : array|object
     {
-        return [
+        $connection = [
             'host' => Session::get('host'),
             'port' => Session::get('port'),
             'require_password' => Session::get('require_password'),
         ];
+        if(!$array){
+            $json = json_encode($connection);
+            $connection = json_decode($json);
+        }
+
+        return $connection;
+
     }
 }

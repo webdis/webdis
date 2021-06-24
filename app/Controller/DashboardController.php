@@ -14,7 +14,7 @@ class DashboardController extends Controller
             return new RedirectResponse('/');
         }
 
-        $view = new View('dashboard.dashboard');
+        $view = new View('dashboard.dashboard', ['client' => $this->getClient(), 'connection' => $this->getConnection()]);
 
         return $this->response($view->get());
     }
