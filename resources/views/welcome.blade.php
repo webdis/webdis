@@ -13,7 +13,7 @@
         The Admin Web App For Redis
       </p>
       <p class="mt-2 text-xs text-center text-gray-600">
-        Version {{ $version }}}
+        Version {{ $version }}
       </p>
     </div>
   

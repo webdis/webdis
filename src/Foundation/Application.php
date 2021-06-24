@@ -65,7 +65,7 @@ class Application implements HttpKernelInterface {
             Session::regenerate(true);
             $cookie_a = (new Cookie('webdis_a'));
             $cookie_b = (new Cookie('webdis_b'));
-
+            
             $cookie_a->deleteAndUnset();
             $cookie_b->deleteAndUnset();
 

@@ -3,8 +3,9 @@
       <div class="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
         <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
           <div class="flex items-center flex-shrink-0">
-            <a href="#">
+            <a href="/dashboard" class="flex">
               <img class="block w-auto h-8" src="/img/webdis.svg" alt="Workflow">
+              <p class="self-center ml-2 text-xl font-bold">Webdis</p>
             </a>
           </div>
         </div>
@@ -79,7 +80,9 @@
   
               <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
   
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+              <form action="/logout" method="POST">
+                <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+              </form>
             </div>
           </div>
   
@@ -93,35 +96,21 @@
         <!-- Current: "bg-gray-100 text-gray-900", Default: "hover:bg-gray-50" -->
         <a href="#" aria-current="page" class="block px-3 py-2 text-base font-medium text-gray-900 bg-gray-100 rounded-md">Dashboard</a>
   
-        <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50">Calendar</a>
-  
-        <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50">Teams</a>
-  
-        <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50">Directory</a>
+        <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50">Run Command</a>
       </div>
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center max-w-3xl px-4 mx-auto sm:px-6">
-          <div class="flex-shrink-0">
-            <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-          </div>
           <div class="ml-3">
-            <div class="text-base font-medium text-gray-800">Chelsea Hagon</div>
-            <div class="text-sm font-medium text-gray-500">chelseahagon@example.com</div>
+            <div class="text-base font-medium text-gray-800">Logged In To "tcp://{{ \Delight\Cookie\Session::get('host') }}:{{ \Delight\Cookie\Session::get('port') }}"</div>
+            <div class="text-sm font-medium text-gray-500">@if(\Delight\Cookie\Session::get('has_password')) With Password @else Without Password @endif</div>
           </div>
-          <button type="button" class="flex-shrink-0 p-1 ml-auto text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            <span class="sr-only">View notifications</span>
-            <!-- Heroicon name: outline/bell -->
-            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
-          </button>
         </div>
         <div class="max-w-3xl px-2 mx-auto mt-3 space-y-1 sm:px-4">
-          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Your Profile</a>
-  
           <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Settings</a>
   
-          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Sign out</a>
+          <form method="POST" action="/logout">
+            <button href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Sign out</button>
+          </form>
         </div>
       </div>
     </nav>

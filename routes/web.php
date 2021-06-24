@@ -11,4 +11,6 @@ $routes->add('welcome',
 
 $routes->add('login_post', new Route('/', ['LoginController', 'afterForm'], ['POST']));
 
+$routes->add('logout', new Route('/logout', ['LogoutController', 'logout'], ['POST']));
+
 $routes->add('dashboard', new Route('/dashboard', ['DashboardController', 'main']));

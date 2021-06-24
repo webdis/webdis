@@ -35,4 +35,13 @@ class Controller extends BaseController
     {
         return Session::has('logged_in');
     }
+
+    public function getConnection() : array
+    {
+        return [
+            'host' => Session::get('host'),
+            'port' => Session::get('port'),
+            'require_password' => Session::get('require_password'),
+        ];
+    }
 }
