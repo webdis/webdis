@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection as RoutingRouteCollection;
+use Webdis\Cache\DevCache;
 use Webdis\Controller\Response as ControllerResponse;
 use Webdis\Foundation\Exceptions\ResponseNotValidException;
 use Webdis\Route\RouteCollection;
@@ -35,7 +36,6 @@ class Application implements HttpKernelInterface {
 
         $config = Dotenv::createImmutable($this->root);
         $config->load();
-
 
         if(!Cookie::exists('webdis_a'))
         {
@@ -71,6 +71,13 @@ class Application implements HttpKernelInterface {
 
             $error = new View('errors.generic', ['code' => 419, 'message' => 'Page Expired ' ]);
             return new Response($error->get(), 419);
+        }
+
+        if($_ENV['WEBDIS_DEBUG'])
+        {
+            $devCache = new DevCache($this->root, $this->root . '/storage/cache/views');
+
+            $devCache->deleteViewCache();
         }
 
         foreach($this->routes->all() as $route)

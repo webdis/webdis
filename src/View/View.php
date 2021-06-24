@@ -17,7 +17,7 @@ class View {
 
     public function __construct(string $view, array $data = [])
     {
-        $this->cacheFolder = dirname(__DIR__, 2) . '/storage/cache';
+        $this->cacheFolder = dirname(__DIR__, 2) . '/storage/cache/views';
 
         $this->viewFolder = dirname(__DIR__, 2) . '/resources/views';
 
