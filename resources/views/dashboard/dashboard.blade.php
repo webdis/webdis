@@ -10,7 +10,7 @@
           Total Keys
         </dt>
         <dd class="mt-1 text-2xl font-semibold text-gray-900">
-          {{ count($client->keys('*')) }}
+          {{ count($runner->run(['KEYS', '*'])) }}
         </dd>
       </div>
   

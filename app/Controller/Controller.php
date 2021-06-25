@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Delight\Cookie\Session;
 use Predis\Client;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Webdis\Controller\Controller as BaseController;
 
 class Controller extends BaseController
@@ -34,6 +36,11 @@ class Controller extends BaseController
     public function getLoggedIn() : bool
     {
         return Session::has('logged_in');
+    }
+
+    public function getRequest() : Request
+    {
+        return Request::createFromGlobals();
     }
 
     public function getConnection(bool $array = false) : array|object
