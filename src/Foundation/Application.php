@@ -2,10 +2,10 @@
 
 namespace Webdis\Foundation;
 
+use DebugBar\DataCollector\MessagesCollector;
+use DebugBar\DebugBar;
 use Delight\Cookie\Cookie;
 use Delight\Cookie\Session;
-use Dotenv\Dotenv;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -34,8 +34,35 @@ class Application implements HttpKernelInterface {
     {
         $symfonyRoute = new RoutingRouteCollection();
 
-        $config = Dotenv::createImmutable($this->root);
-        $config->load();
+        if(!Session::has('__previous')){
+            Session::set('__previous', '');
+        }
+
+        if(Session::has('__current'))
+        {
+            if(!Session::get('__current') == $request->getPathInfo())
+            {
+                Session::set('__previous', Session::get('__current'));
+            }
+        }
+
+        if(Session::has('__flash'))
+        {
+            if(Session::get('__flash') != '')
+            {
+                Session::set('flash', Session::get('__flash'));
+                Session::set('__flash', '');
+            }
+        }
+        else{
+            Session::set('__flash', '');
+            if(Session::has('flash'))
+            {
+                Session::delete('flash');
+            }
+        }
+
+        Session::set('__current', $request->getPathInfo());
 
         if(!Cookie::exists('webdis_a'))
         {
@@ -73,13 +100,27 @@ class Application implements HttpKernelInterface {
             return new Response($error->get(), 419);
         }
 
-        if($_ENV['WEBDIS_DEBUG'])
+        if($_ENV['WEBDIS_DEBUG'] == "true")
         {
+            Session::set('debug', true);
+
             $devCache = new DevCache($this->root, $this->root . '/storage/cache/views');
 
             $devCache->deleteViewCache();
-        }
 
+            $debugbar = new DebugBar();
+
+            $debugbar->addCollector(new MessagesCollector());
+
+            $renderer = $debugbar->getJavascriptRenderer();
+
+            Session::set('debugbar', $debugbar);
+
+            Session::set('debugbar_renderer', $renderer);
+        }
+        else {
+            Session::set('debug', false);
+        }
         foreach($this->routes->all() as $route)
         {
             $symfonyRoute->add($route->getName(), new Route($route->getPath(), $route->getDefaults(), $route->getRequirements(), $route->getOptions(), $route->getHost(), $route->getSchemes(), $route->getMethods(), $route->getCondition()));
@@ -121,7 +162,7 @@ class Application implements HttpKernelInterface {
             }
             else{
                 // Error 500
-                if( $_ENV['WEBDIS_DEBUG'] ){
+                if( $_ENV['WEBDIS_DEBUG'] == "true" ){
                     // Hope that whoops helped with there error and assume it didn't so we can run a server error
                     Throw new ResponseNotValidException('Response Class is not valid', 500);
 

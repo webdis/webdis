@@ -105,7 +105,7 @@ class Runner {
     /**
      * Returns the command that caused an error
      * 
-     * @return string
+     * @return string[]
      */
     public function errorCameFrom() : string
     {

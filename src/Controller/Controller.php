@@ -15,4 +15,9 @@ class Controller implements ControllerInterface
     {
         return Request::createFromGlobals();
     }
+
+    public function errorResponse(int $status = 404)
+    {
+        return new ErrorResponse($status);
+    }
 }

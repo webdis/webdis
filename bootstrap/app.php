@@ -2,6 +2,7 @@
 
 use App\Kernel;
 use Delight\Cookie\Session;
+use Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Webdis\Config\Config;
 use Webdis\Foundation\Application;
@@ -10,8 +11,19 @@ if(empty(session_id())){
     Session::start();
 }
 
+
+$config = Dotenv::createImmutable(dirname(__DIR__));
+$config->load();
+
 $whoops = new \Whoops\Run;
-$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+if($_ENV['WEBDIS_DEBUG'] == "true")
+{
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+}
+else
+{
+    $whoops->pushHandler(new \Webdis\Foundation\ProductionErrorHandler);    
+}
 $whoops->register();
 
 $request = Request::createFromGlobals();

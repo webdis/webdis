@@ -8,6 +8,12 @@ Webdis is a Redis Admin Web App, inspired by PHPMyAdmin. The idea came from want
 
 ## PLEASE NOTE WEBDIS IS NOT YET READY FOR PRODUCTION
 
+## Currently Supported Groups
+
+- String (partial)
+- Set (partial)
+- Sorted Set (partial)
+
 ## Development
 
 If you want to help in the development of Webdis, I first recommend you look over the code and run it in a web browser to see how it works.

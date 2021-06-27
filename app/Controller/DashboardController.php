@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Delight\Cookie\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Webdis\View\View;
 use Webdis\Redis\Runner;
@@ -14,6 +15,10 @@ class DashboardController extends Controller
         if(!$loggedIn) {
             return new RedirectResponse('/');
         }
+
+        $this->debugBarMessage('Welcome to Webdis');
+
+        $this->debugBarMessage('You are in development mode, which is why you are seeing this.');
 
         $runner = new Runner($this->getClient());
 

@@ -25,7 +25,7 @@
   
       <div class="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
         <dt class="text-sm font-medium text-gray-500 truncate">
-          Total Namespaces
+          Total Namespaced Items
         </dt>
         <dd class="mt-1 text-2xl font-semibold text-gray-900">
             @php
@@ -52,6 +52,9 @@
               <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                 Value
               </th>
+              <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                Value
+              </th>
               <th scope="col" class="relative px-6 py-3">
                 <span class="sr-only">Options</span>
               </th>
@@ -59,6 +62,7 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             @foreach($client->keys('*') as $key)
+            @if($client->type($key) == 'string')
               <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                   {{ $key }}
@@ -66,10 +70,65 @@
                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                   {{ $client->get($key) }}
                 </td>
+                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                  String
+                </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
+              @elseif($client->type($key) == 'set')
+              <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                  {{ $key }}
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                  Has {{ $client->scard($key) }} Items
+                </td>
+
+                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                  Set
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+              </tr>
+              @elseif($client->type($key) == 'zset')
+              <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                  {{ $key }}
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                  Has {{ $client->zcard($key) }} Items
+                </td>
+                
+                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                  Sorted Set
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+              </tr>
+              @else
+              <tr>
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                  {{ $key }}
+                </td>
+                <td class="px-6 py-4 text-sm font-bold text-gray-500 whitespace-nowrap">
+                  Unsupported Type
+                </td>
+                
+                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                  {{ ucfirst($client->type($key)) }}
+                </td>
+                <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </tr>
+              @endif
             @endforeach
 
             <!-- More people... -->

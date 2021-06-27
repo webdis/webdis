@@ -58,4 +58,13 @@ class Controller extends BaseController
         return $connection;
 
     }
+
+    public function debugBarMessage(string $message, $type = 'info')
+    {
+        $debugbar = Session::get('debugbar');
+
+        $debugbar['messages']->{$type}($message);
+
+        Session::set('debugbar', $debugbar);
+    }
 }
