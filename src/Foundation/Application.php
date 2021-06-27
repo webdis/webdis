@@ -161,11 +161,19 @@ class Application implements HttpKernelInterface {
             {
                 return new Response($result->content, $result->status, $result->headers);
             }
+            elseif(is_a($result, 'Webdis\Controller\ErrorResponse'))
+            {
+                $view = new View('errors.generic', ['code' => $result->error, 'message' => $result->errorText]);
+
+                return new Response($view->get(), $result->error);
+            }
             else{
                 // Error 500
                 if( config('app.debug') ){
                     // Hope that whoops helped with there error and assume it didn't so we can run a server error
-                    Throw new ResponseNotValidException('Response Class is not valid', 500);
+
+
+                    Throw new ResponseNotValidException('Response type is not allowed', 500);
 
                 }
                 else{

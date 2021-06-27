@@ -7,6 +7,7 @@ use Predis\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Webdis\Controller\Controller as BaseController;
+use Webdis\View\View;
 
 class Controller extends BaseController
 {
@@ -66,5 +67,12 @@ class Controller extends BaseController
         $debugbar['messages']->{$type}($message);
 
         Session::set('debugbar', $debugbar);
+    }
+
+    public function view(string $name, array $data) : string
+    {
+        $view = new View($name, $data);
+
+        return $view->get();
     }
 }
