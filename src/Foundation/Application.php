@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection as RoutingRouteCollection;
+use Webdis\Cache\CacheConfig;
 use Webdis\Cache\DevCache;
 use Webdis\Controller\Response as ControllerResponse;
 use Webdis\Foundation\Exceptions\ResponseNotValidException;
@@ -67,7 +68,7 @@ class Application implements HttpKernelInterface {
         if(!Cookie::exists('webdis_a'))
         {
             $rand = random_bytes(25);
-            $cookie = crypt(base64_encode($rand), $_ENV['WEBDIS_KEY']);
+            $cookie = crypt(base64_encode($rand), config('security.key'));
 
             Cookie::setcookie('webdis_a', base64_encode($cookie));
             Cookie::setcookie('webdis_b', $rand);
@@ -75,7 +76,7 @@ class Application implements HttpKernelInterface {
             Session::set('generated', true);
         }
         else{
-            if(Cookie::get('webdis_a') !== base64_encode(crypt(base64_encode(Cookie::get('webdis_b')), $_ENV['WEBDIS_KEY']))){
+            if(Cookie::get('webdis_a') !== base64_encode(crypt(base64_encode(Cookie::get('webdis_b')), config('security.key')))){
                 $error = new View('errors.generic', ['code' => 419, 'message' => 'Page Expired ' ]);
                 
                 $cookie_a = (new Cookie('webdis_a'));
@@ -100,7 +101,7 @@ class Application implements HttpKernelInterface {
             return new Response($error->get(), 419);
         }
 
-        if($_ENV['WEBDIS_DEBUG'] == "true")
+        if(config('app.debug'))
         {
             Session::set('debug', true);
 
@@ -162,7 +163,7 @@ class Application implements HttpKernelInterface {
             }
             else{
                 // Error 500
-                if( $_ENV['WEBDIS_DEBUG'] == "true" ){
+                if( config('app.debug') ){
                     // Hope that whoops helped with there error and assume it didn't so we can run a server error
                     Throw new ResponseNotValidException('Response Class is not valid', 500);
 

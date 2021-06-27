@@ -25,7 +25,7 @@ class View {
 
         $this->loadDirectives();
 
-        $config = $_ENV;
+        $config = allConfig();
 
         $configJson = json_encode($config);
 
@@ -49,7 +49,7 @@ class View {
         $this->blade->directive('component', function(string $location, array $data = []){
             $componentBlade = new Blade($this->viewFolder, $this->cacheFolder);
 
-            $config = $_ENV;
+            $config = allConfig();
 
             $configJson = json_encode($config);
 

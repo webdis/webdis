@@ -11,12 +11,18 @@ if(empty(session_id())){
     Session::start();
 }
 
+if(!configCacheExists())
+{
+    $envLoad = Dotenv::createImmutable(dirname(__DIR__));
+    $envLoad->load();
+}
 
-$config = Dotenv::createImmutable(dirname(__DIR__));
-$config->load();
+$config = new Config(dirname(__DIR__));
+
+Config::store($config->config, $config->from);
 
 $whoops = new \Whoops\Run;
-if($_ENV['WEBDIS_DEBUG'] == "true")
+if(config('app.debug'))
 {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 }
@@ -32,7 +38,6 @@ require dirname(__DIR__) . '/routes/web.php';
 
 $app = new Application(__DIR__, $routes);
 
-$config = new Config();
 
 $kernel = new Kernel($config);
 

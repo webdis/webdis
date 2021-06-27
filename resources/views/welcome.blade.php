@@ -39,7 +39,7 @@
               Host
             </label>
             <div class="mt-1">
-              <input id="host" name="host" type="text" required class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ $config->WEBDIS_DEFAULT_HOST }}">
+              <input id="host" name="host" type="text" required class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ config('redis.default-host') }}">
             </div>
           </div>
 
@@ -48,7 +48,7 @@
               Port
             </label>
             <div class="mt-1">
-              <input id="port" name="port" type="text" class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ $config->WEBDIS_DEFAULT_PORT }}">
+              <input id="port" name="port" type="text" class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" value="{{ config('redis.default-port') }}">
             </div>
           </div>
   

@@ -2,32 +2,78 @@
 
 namespace Webdis\Config;
 
-class Config implements \IteratorAggregate, \Countable
-{
+use Dflydev\DotAccessData\Data;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
+class Config
+{
     public array $config = [];
 
-    private int $count = 0;
+    public string $from;
 
-    public function __construct()
+    static array $staticConfig;
+
+    static string $staticFrom;
+
+    public function __construct($root)
     {
-        
+        $filesystem = new Filesystem;
+
+        if($filesystem->exists($root . '/storage/cache/config.php'))
+        {
+            $this->config = include $root . '/storage/cache/config.php';
+
+            $this->from = 'cache';
+        }
+        else{
+            $finder = new Finder;
+
+            $configFiles = $finder->files()->name('*.php')->in($root . '/config');
+
+            foreach($configFiles as $file)
+            {
+                $configArray = [];
+
+                $fileArray = include $file->getRealPath();
+
+                $fileArrayWithName[$file->getBasename('.php')] = $fileArray;
+
+                $count = array_push($configArray, $fileArrayWithName) - 1;
+
+                $this->config = $configArray[$count];
+
+                $this->from = 'folder';
+            }
+
+            
+        }
     }
 
-    public function add(string $name, string $file)
+    static function store($config, $from)
     {
-        $load = new ConfigLoader($name, $file);
+        self::$staticConfig = $config;
 
-        $this->count++;
+        self::$staticFrom = $from;
     }
 
-    public function getIterator()
+    static function get(string $key = '') : mixed
     {
-        
+        $config = new Data(self::$staticConfig);
+
+        if($config->has($key))
+        {
+            return $config->get($key);
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    public function count()
+    static function all(): array
     {
-        return $this->count;
+        return self::$staticConfig;
     }
+
 }
