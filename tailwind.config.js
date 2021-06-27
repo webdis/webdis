@@ -1,6 +1,6 @@
 module.exports = {
   purge: [
-    "./templates/**/*.twig",
+    "./templates/**/*.blade.php",
     "./resources/**/*.js"
 
   ],
