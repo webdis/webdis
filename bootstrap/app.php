@@ -3,6 +3,7 @@
 use App\Kernel;
 use Delight\Cookie\Session;
 use Dotenv\Dotenv;
+use Monolog\Formatter\LineFormatter;
 use Symfony\Component\HttpFoundation\Request;
 use Webdis\Config\Config;
 use Webdis\Foundation\Application;
@@ -37,7 +38,21 @@ else
 }
 
 $logger = new Monolog\Logger('webdis');
-$logger->pushHandler(new Monolog\Handler\StreamHandler(dirname(__DIR__) . '/storage/logs/webdis.log' ));
+
+$formatter = new LineFormatter(
+    null, // Format of message in log, default [%datetime%] %channel%.%level_name%: %message% %context% %extra%\n
+    null, // Datetime format
+    true, // allowInlineLineBreaks option, default false
+    true  // discard empty Square brackets in the end, default false
+);
+
+$logHandler = new Monolog\Handler\StreamHandler(dirname(__DIR__) . '/storage/logs/webdis.log' );
+
+$logHandler->setFormatter($formatter);
+
+$logger->pushHandler($logHandler);
+
+
 
 $whoops->pushHandler(function ($exception, $inspector, $run) use($logger) {
 
