@@ -28,4 +28,10 @@ sudo chown -R $USER:www-data storage/
 chmod -R 775 bootstrap/
 chmod -R 775 storage/
 
+echo Resetting Caches
+
+# These reset the config and view caches.
+php bin/console.php config:cache
+php bin/console.php view:cache
+
 echo Webdis has been updated!

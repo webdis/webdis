@@ -11,7 +11,7 @@ use Webdis\Config\Config;
 
 class CacheConfig extends Command
 {
-    protected static $defaultName="cache:config";
+    protected static $defaultName="config:cache";
 
     protected function configure() : void
     {
