@@ -10,7 +10,7 @@
 console.log('Nothing to see here :)');
 window.addEventListener("load", function () {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/js/servicesworker.js");
+    navigator.serviceWorker.register("/servicesworker.js");
   }
 });
 
