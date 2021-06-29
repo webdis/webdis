@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export WEBDIS_NEW_VERSION="0.0.1"
+export WEBDIS_NEW_VERSION="0.0.2"
 
 echo "$WEBDIS_CURRENT_VERSION"
 
