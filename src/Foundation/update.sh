@@ -1,12 +1,18 @@
-export WEBDIS_NEW_VERSION=0.0.2
+#!/bin/bash
 
-if [ "$WEBDIS_CURRENT_VERSION != $WEBDIS_NEW_VERSION" ]
-then
-    echo "Version $WEBDIS_CURRENT_VERSION is the same. Not updating."
-    return
-else
-    echo "Updating to Webis version: $WEBDIS_NEW_VERSION"
-fi
+export WEBDIS_NEW_VERSION="0.0.1"
+
+echo "$WEBDIS_CURRENT_VERSION"
+
+echo "$WEBDIS_NEW_VERSION"
+
+if [ "$(printf '%s\n' "$WEBDIS_NEW_VERSION" "$WEBDIS_CURRENT_VERSION" | sort -V | head -n1)" = "$WEBDIS_NEW_VERSION" ]; then 
+        echo "Already using the lastest version."
+        echo "Version ${WEBDIS_NEW_VERSION} == ${WEBDIS_CURRENT_VERSION}"
+        exit
+ else
+        echo "Updating to ${WEBDIS_NEW_VERSION}"
+ fi
 
 echo Running update script...
 
