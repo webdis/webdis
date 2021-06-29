@@ -1,4 +1,4 @@
-WEBDIS_NEW_VERSION=0.0.1
+export WEBDIS_NEW_VERSION=0.0.1
 
 if ["$WEBDIS_CURRENT_VERSION != $WEBDIS_NEW_VERSION"] then
     echo "Version $WEBDIS_CURRENT_VERSION is the same. Not updating."
