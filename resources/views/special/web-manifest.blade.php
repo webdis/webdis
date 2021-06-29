@@ -1,6 +1,7 @@
 {
     "name": "Webdis",
     "short_name": "Webdis",
+    "start_url": "{{ config('app.url') }}",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

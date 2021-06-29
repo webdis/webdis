@@ -72,7 +72,7 @@ class Controller extends BaseController
         }
     }
 
-    public function view(string $name, array $data) : string
+    public function view(string $name, array $data = []) : string
     {
         $view = new View($name, $data);
 

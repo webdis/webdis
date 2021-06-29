@@ -9,6 +9,8 @@ $routes->add('welcome',
     new Route('/', ['WelcomeController', 'show'])
 );
 
+$routes->add('webmanifest', new Route('/site.webmanifest', ['SpecialController', 'webmanifest']));
+
 $routes->add('login_post', new Route('/', ['LoginController', 'afterForm'], ['POST']));
 
 $routes->add('logout', new Route('/logout', ['LogoutController', 'logout'], ['POST']));
