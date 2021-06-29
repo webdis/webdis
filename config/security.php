@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'key' => env('WEBDIS_KEY')
+    'key' => env('WEBDIS_KEY', random_string()),
 ];

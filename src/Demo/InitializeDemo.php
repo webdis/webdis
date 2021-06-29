@@ -16,10 +16,7 @@ class InitializeDemo
 
     public function create()
     {
-        $cacheConfig = new CacheConfig(dirname(__DIR__, 2) . '/config', dirname(__DIR__ , 2) . '/storage/cache');
-
-        $cacheConfig->cache();
-
+        
         $devcache = new DevCache(dirname(__DIR__, 2), dirname(__DIR__ , 2) . '/storage/cache/views');
 
         $devcache->deleteViewCache();

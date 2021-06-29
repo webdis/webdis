@@ -52,7 +52,7 @@ $logHandler->setFormatter($formatter);
 
 $logger->pushHandler($logHandler);
 
-
+// dd(config('security.key'));
 
 $whoops->pushHandler(function ($exception, $inspector, $run) use($logger) {
 
