@@ -8,10 +8,11 @@
 /***/ (() => {
 
 console.log('Nothing to see here :)');
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
-}
+window.addEventListener("load", function () {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/js/servicesworker.js");
+  }
+});
 
 /***/ }),
 
