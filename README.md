@@ -25,6 +25,10 @@ Meanwhile Webdis is not ready for production, it is still possbible to run it wi
 - Cluster Management
 - Changing Redis Configuration
 
+## Roadmap
+
+The roadmap for Webdis will be available in our documentation.
+
 ## Development
 
 If you want to help in the development of Webdis, I first recommend you look over the code and run it in a web browser to see how it works.
