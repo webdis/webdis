@@ -10,4 +10,9 @@ class SpecialController extends Controller
         return $this->response($this->view('special.web-manifest'));
     }
 
+    public function offline()
+    {
+        return $this->response($this->view('special.offline'));
+    }
+
 }
