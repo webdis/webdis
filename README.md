@@ -6,13 +6,24 @@ The Redis Administration Web App
 
 Webdis is a Redis Admin Web App, inspired by PHPMyAdmin. The idea came from wanting to be able to have a simpler interface for accessing Redis, instead of using redis-cli.
 
+If you would like to view the Documentation for Webdis, it is available [here](https://elijahcruz12.gitbook.io/webdis-documentation/).
+
 ## PLEASE NOTE WEBDIS IS NOT YET READY FOR PRODUCTION
+
+Meanwhile Webdis is not ready for production, it is still possbible to run it without any issues.
 
 ## Currently Supported Groups
 
 - String (partial)
 - Set (partial)
 - Sorted Set (partial)
+
+## Unsupported Redis Features
+
+- Logging in with both username/password is not yet supported.
+- Logging into clusters is not yet supported.
+- Cluster Management
+- Changing Redis Configuration
 
 ## Development
 
