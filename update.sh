@@ -10,3 +10,5 @@ echo Pulling the new version of Webdis...
 git add -A
 git stash
 git pull
+
+./src/Foundation/update.sh
