@@ -3,6 +3,7 @@
 namespace Webdis\Demo;
 
 use Webdis\Cache\CacheConfig;
+use Webdis\Cache\DevCache;
 
 class InitializeDemo
 {
@@ -18,5 +19,9 @@ class InitializeDemo
         $cacheConfig = new CacheConfig(dirname(__DIR__, 2) . '/config', dirname(__DIR__ , 2) . '/storage/cache');
 
         $cacheConfig->cache();
+
+        $devcache = new DevCache(dirname(__DIR__, 2), dirname(__DIR__ , 2) . '/storage/cache/views');
+
+        $devcache->deleteViewCache();
     }
 }
