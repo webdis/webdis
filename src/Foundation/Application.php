@@ -14,6 +14,7 @@ use Symfony\Component\Routing\RouteCollection as RoutingRouteCollection;
 use Webdis\Cache\CacheConfig;
 use Webdis\Cache\DevCache;
 use Webdis\Controller\Response as ControllerResponse;
+use Webdis\Demo\InitializeDemo;
 use Webdis\Foundation\Exceptions\ResponseNotValidException;
 use Webdis\Route\RouteCollection;
 use Webdis\View\View;
@@ -99,6 +100,13 @@ class Application implements HttpKernelInterface {
 
             $error = new View('errors.generic', ['code' => 419, 'message' => 'Page Expired ' ]);
             return new Response($error->get(), 419);
+        }
+
+        if(config('app.demo'))
+        {
+            $demo = new InitializeDemo(config('app.demo'));
+
+            $demo->create();
         }
 
         if(config('app.debug'))

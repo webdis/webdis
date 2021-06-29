@@ -62,11 +62,14 @@ class Controller extends BaseController
 
     public function debugBarMessage(string $message, $type = 'info')
     {
-        $debugbar = Session::get('debugbar');
 
-        $debugbar['messages']->{$type}($message);
-
-        Session::set('debugbar', $debugbar);
+        if(config('app.debug')){
+            $debugbar = Session::get('debugbar');
+            
+            $debugbar['messages']->{$type}($message);
+            
+            Session::set('debugbar', $debugbar);
+        }
     }
 
     public function view(string $name, array $data) : string

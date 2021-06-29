@@ -26,6 +26,10 @@ if(config('app.debug'))
 {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 }
+elseif(config('app.forcewhoops'))
+{
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+}
 else
 {
     $whoops->pushHandler(new \Webdis\Foundation\ProductionErrorHandler);    
