@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Webdis\Redis\Runner;
 use Webdis\View\View;
 
@@ -9,6 +10,11 @@ class RunController extends Controller
 {
     public function run()
     {
+        $loggedIn = $this->getLoggedIn();
+
+        if(!$loggedIn) {
+            return new RedirectResponse('/');
+        }
 
         $client = $this->getClient();
 

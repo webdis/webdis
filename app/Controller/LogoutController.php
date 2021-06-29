@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class LogoutController extends Controller
 {
     public function logout(){
+        $loggedIn = $this->getLoggedIn();
+
+        if(!$loggedIn) {
+            return new RedirectResponse('/');
+        }
 
         $cookie_a = (new Cookie('webdis_a'));
         $cookie_b = (new Cookie('webdis_b'));

@@ -2,12 +2,19 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ViewController extends Controller
 {
     public function show()
     {
+        $loggedIn = $this->getLoggedIn();
+
+        if(!$loggedIn) {
+            return new RedirectResponse('/');
+        }
+
         $request = Request::createFromGlobals();
 
         if(!$request->query->has('key'))
