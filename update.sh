@@ -32,6 +32,6 @@ echo Resetting Caches
 
 # These reset the config and view caches.
 php bin/console.php config:cache
-php bin/console.php view:cache
+php bin/console.php view:reset
 
 echo Webdis has been updated!
