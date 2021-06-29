@@ -11,6 +11,8 @@ use Webdis\View\View;
 
 class Controller extends BaseController
 {
+    private $request;
+
     public function getClient() : Client
     {
         if(Session::get('require_password'))
@@ -34,6 +36,11 @@ class Controller extends BaseController
         
     }
 
+    public function __construct()
+    {
+        $this->request = Request::createFromGlobals();
+    }
+
     public function getLoggedIn() : bool
     {
         return Session::has('logged_in');
@@ -41,7 +48,13 @@ class Controller extends BaseController
 
     public function getRequest() : Request
     {
-        return Request::createFromGlobals();
+        
+        return $this->request;
+    }
+
+    public function setRequest($request) : void
+    {
+        $this->request = $request;
     }
 
     public function getConnection(bool $array = false) : array|object

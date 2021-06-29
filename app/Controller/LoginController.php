@@ -6,7 +6,6 @@ use Delight\Cookie\Session;
 use Predis\Client;
 use Predis\Connection\ConnectionException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Webdis\Controller\Response;
 use Webdis\Forms\Validator;
 use Webdis\View\View;
@@ -14,7 +13,8 @@ use Webdis\View\View;
 class LoginController extends Controller
 {
     public function afterForm(){
-        $request = Request::createFromGlobals();
+
+        $request = $this->getRequest();
 
         $validator = new Validator();
 
