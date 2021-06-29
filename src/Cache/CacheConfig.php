@@ -20,6 +20,16 @@ class CacheConfig
         $this->cacheFolder = $cacheFolder;
     }
 
+    public function deleteCache()
+    {
+        $filesystem = new Filesystem();
+
+        if($filesystem->exists($this->cacheFolder . '/config.php'))
+        {
+            $filesystem->remove($this->cacheFolder . '/config.php');
+        }   
+    }
+
     public function cache()
     {
         $fileStart = 
