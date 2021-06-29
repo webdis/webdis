@@ -10,7 +10,7 @@ use Webdis\Redis\Runner;
 class DashboardController extends Controller
 {
     public function main(){
-        $loggedIn = $this->getLoggedIn();
+        $loggedIn = $this->getLoggedIn();d
 
         if(!$loggedIn) {
             return new RedirectResponse('/');

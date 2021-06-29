@@ -22,6 +22,7 @@ $config = new Config(dirname(__DIR__));
 Config::store($config->config, $config->from);
 
 $whoops = new \Whoops\Run;
+
 if(config('app.debug'))
 {
     $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
@@ -34,6 +35,15 @@ else
 {
     $whoops->pushHandler(new \Webdis\Foundation\ProductionErrorHandler);    
 }
+
+$logger = new Monolog\Logger('webdis');
+$logger->pushHandler(new Monolog\Handler\StreamHandler(dirname(__DIR__) . '/storage/logs/webdis.log' ));
+
+$whoops->pushHandler(function ($exception, $inspector, $run) use($logger) {
+
+    $logger->error(get_class($exception) . ' ' . $exception->getMessage() );
+});
+
 $whoops->register();
 
 $request = Request::createFromGlobals();

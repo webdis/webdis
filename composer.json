@@ -40,7 +40,8 @@
         "delight-im/cookie": "^3.4",
         "predis/predis": "^1.1",
         "maximebf/debugbar": "^1.16",
-        "dflydev/dot-access-data": "^3.0"
+        "dflydev/dot-access-data": "^3.0",
+        "monolog/monolog": "^2.2"
     },
     "require-dev": {
         "larapack/dd": "^1.1"
