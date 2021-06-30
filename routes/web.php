@@ -21,3 +21,5 @@ $routes->add('logout', new Route('/logout', ['LogoutController', 'logout'], ['PO
 $routes->add('dashboard', new Route('/dashboard', ['DashboardController', 'main']));
 
 $routes->add('view', new Route('/view', ['ViewController', 'show']));
+
+$routes->add('runner', new Route('/run', ['RunController', 'run'], ['POST']));

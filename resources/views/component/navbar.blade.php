@@ -12,7 +12,7 @@
         <div class="flex-1 min-w-0 md:px-8 lg:px-0 xl:col-span-6">
           <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
             <div class="w-full">
-              <form>
+              <form method="POST" action="/run">
                 <label for="command" class="sr-only">Run Command</label>
                 <div class="relative">
                   <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
