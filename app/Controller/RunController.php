@@ -24,7 +24,17 @@ class RunController extends Controller
 
         $result = $runner->run($args);
 
-        $view = new View('dashboard.runner', ['result' => $result, 'type' => gettype($result), 'command' => $args]);
+        $lastRows = $runner->lastRows();
+
+        $array = explode(' ' , $args);
+
+        $argDoes = match ($array[0]) {
+            'keys', 'KEYS', 'get', 'GET' => 'return',
+            'set', 'SET' => 'create',
+            default => 'error',
+        };
+
+        $view = new View('dashboard.runner', ['result' => $result,'lastRows' => $lastRows , 'type' => gettype($result), 'command' => $args, 'commandDoes' => $argDoes]);
 
         return $this->response($view->get());
     }

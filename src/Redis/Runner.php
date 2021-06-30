@@ -15,6 +15,8 @@ class Runner {
     private array $errors = [];
 
     private string $errorFromCommand = '';
+
+    private array $lastRowsReturned = [];
     
     /**
      * Run a redis command simply and easily through here. 
@@ -112,6 +114,11 @@ class Runner {
         return $this->errorFromCommand;
     }
 
+    public function lastRows(): array
+    {
+        return $this->lastRowsReturned;
+    }
+
     private function keys(array $args) : array
     {
         $argsCountCheck = count($args);
@@ -126,6 +133,49 @@ class Runner {
             throw new IncorrectArgumentType('KEYS expect argument to be string, got '.gettype($args).'.');
         }
 
+        $this->lastRowsReturned['amountReturned'] = count($this->client->keys($args[1]));
+
+        $this->lastRowsReturned['affected'] = 0;
+
         return $this->client->keys($args[1]);
+    }
+
+    private function get(array $args)
+    {
+        $argsCountCheck = count($args);
+
+        if($argsCountCheck != 2){
+            $argsCountCheckCount = $argsCountCheck - 1;
+            throw new ToManyArgumentsException('KEYS expecs one argument, got '.$argsCountCheckCount.'.');
+        }
+
+        if(!is_string($args[1]))
+        {
+            throw new IncorrectArgumentType('KEYS expect argument to be string, got '.gettype($args).'.');
+        }
+
+        $this->lastRowsReturned['amountReturned'] = 1;
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        return $this->client->get($args[1]);
+    }
+
+    private function set(array $args)
+    {
+        $name = $args[1];
+
+        unset($args[0]);
+        unset($args[1]);
+
+        $this->lastRowsReturned['amountReturned'] = 1;
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $array = implode(' ', $args);
+
+        $value = str_replace('"', "", str_replace("'", "", $array));
+
+        return $this->client->set($name, $value);
     }
 }

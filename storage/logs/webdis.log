@@ -1,4 +1,0 @@
-[2021-06-30T00:46:08.461251+00:00] webdis.ERROR: InvalidArgumentException View [dashboard.runner] not found.  
-[2021-06-30T00:47:36.672431+00:00] webdis.ERROR: TypeError implode(): Argument #2 ($array) must be of type ?array, string given  
-[2021-06-30T00:48:25.921685+00:00] webdis.ERROR: Illuminate\View\ViewException syntax error, unexpected variable "$command", expecting ")" (View: /app/resources/views/dashboard/runner.blade.php)  
-[2021-06-30T00:48:47.605745+00:00] webdis.ERROR: Illuminate\View\ViewException syntax error, unexpected variable "$command", expecting ")" (View: /app/resources/views/dashboard/runner.blade.php)  
