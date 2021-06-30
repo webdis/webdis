@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Delight\Cookie\Session;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Webdis\View\View;
 use Webdis\Redis\Runner;
