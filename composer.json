@@ -2,7 +2,7 @@
     "name": "webdis/webdis",
     "description": "A redis web admin",
     "type": "project",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Elijah Cruz",
