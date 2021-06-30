@@ -16,7 +16,7 @@ class Runner {
 
     private string $errorFromCommand = '';
 
-    private array $lastRowsReturned = [];
+    private array $lastRowsReturned = ['amountReturned' => 0, 'affected' => 0];
     
     /**
      * Run a redis command simply and easily through here. 
@@ -78,6 +78,7 @@ class Runner {
             'KEYS' => 'keys',
             'GET' => 'get',
             'SET' => 'set',
+            'SADD'=> 'sadd',
             default => 'nomethod'
         };
 
@@ -102,6 +103,21 @@ class Runner {
     public function getErrors() : array
     {
         return $this->errors;
+    }
+
+    private function sadd(array $args)
+    {
+        $name = $args[1];
+
+        unset($args[0]);
+
+        call_user_func_array(array($this->client, "sadd"), $args);
+
+        $this->lastRowsReturned['amountReturned'] = $this->client->scard($name);
+
+        $this->lastRowsReturned['affected'] = count($args);
+
+        return 'added';
     }
 
     /**
@@ -166,7 +182,6 @@ class Runner {
         $name = $args[1];
 
         unset($args[0]);
-        unset($args[1]);
 
         $this->lastRowsReturned['amountReturned'] = 1;
 
@@ -177,5 +192,10 @@ class Runner {
         $value = str_replace('"', "", str_replace("'", "", $array));
 
         return $this->client->set($name, $value);
+    }
+
+    private function nomethod()
+    {
+        throw new \Exception('Not a valid method:' . $args[0]);
     }
 }

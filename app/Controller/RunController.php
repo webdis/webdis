@@ -30,7 +30,7 @@ class RunController extends Controller
 
         $argDoes = match ($array[0]) {
             'keys', 'KEYS', 'get', 'GET' => 'return',
-            'set', 'SET' => 'create',
+            'set', 'SET', 'sadd', 'SADD' => 'create',
             default => 'error',
         };
 
