@@ -111,7 +111,7 @@ class Runner {
 
         unset($args[0]);
 
-        $this->client->sAdd($args);
+        call_user_func_array(array($this->client, "sadd"), $args);
 
         $this->lastRowsReturned['amountReturned'] = $this->client->scard($name);
 
