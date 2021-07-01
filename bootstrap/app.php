@@ -8,10 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Webdis\Config\Config;
 use Webdis\Foundation\Application;
 
-if(empty(session_id())){
-    Session::start();
-}
-
 if(!configCacheExists())
 {
     $envLoad = Dotenv::createImmutable(dirname(__DIR__));
@@ -21,6 +17,21 @@ if(!configCacheExists())
 $config = new Config(dirname(__DIR__));
 
 Config::store($config->config, $config->from);
+
+if(str_contains(config('app.url'), 'https')){
+    $secure = true;
+}
+else{ $secure = false; }
+
+session_set_cookie_params(
+    63113851,
+    '/',
+    parse_url(config('app.url'), PHP_URL_HOST),
+    $secure);
+
+if(empty(session_id())){
+    Session::start();
+}
 
 $whoops = new \Whoops\Run;
 

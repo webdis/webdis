@@ -1,5 +1,6 @@
 <?php
 
+use Jenssegers\Agent\Agent;
 use Symfony\Component\Filesystem\Filesystem;
 use Webdis\Config\Config;
 
@@ -55,5 +56,30 @@ if(!function_exists('random_string'))
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+    }
+}
+
+if(!function_exists('userInfo'))
+{
+    function userInfo(string $type = '')
+    {
+        $agent = new Agent();
+
+        if($type == 'os')
+        {
+            return $agent->platform();
+        }
+        elseif($type == 'browser')
+        {
+            return $agent->browser();
+        }
+        elseif($type == 'browser.version')
+        {
+            return $agent->version($agent->browser());
+        }
+        else
+        {
+            return null;
+        }
     }
 }

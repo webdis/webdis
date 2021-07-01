@@ -46,7 +46,8 @@
         "predis/predis": "^1.1",
         "maximebf/debugbar": "^1.16",
         "dflydev/dot-access-data": "^3.0",
-        "monolog/monolog": "^2.2"
+        "monolog/monolog": "^2.2",
+        "jenssegers/agent": "^2.6"
     },
     "require-dev": {
         "larapack/dd": "^1.1",
