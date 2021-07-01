@@ -68,6 +68,8 @@ class Runner {
             'SET' => 'set',
             'INCR' => 'incr',
             'DECR' => 'decr',
+            'GETRANGE' => 'getrange',
+            'GETSET' => 'getset',
             'SADD'=> 'sadd',
             'GETDEL' => 'getdel',
             'APPEND' => 'append',
@@ -296,6 +298,50 @@ class Runner {
         $value = $this->client->get($key);
 
         $this->client->del($key);
+
+        return $value;
+    }
+
+    private function getrange(array $args)
+    {
+        $key = str_replace('"', "", str_replace("'", "", $args[1]));
+
+        if($this->client->get($key) != null)
+        {
+            $this->lastRowsReturned['amountReturned'] = 1;
+        }
+        else
+        {
+            $this->lastRowsReturned['amountReturned'] = 0;
+        }
+
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        return $this->client->getRange($key, $args[2], $args[3]);
+    }
+
+    private function getset(array $args)
+    {
+        $name = $args[1];
+
+        unset($args[1]);
+        unset($args[0]);
+
+        $this->lastRowsReturned['amountReturned'] = 1;
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $this->lastRowsReturned['actionType'] = "Created";
+
+        $array = implode(' ', $args);
+
+        $value = str_replace('"', "", str_replace("'", "", $array));
+
+        $value = $this->client->getSet($name, $value);
 
         return $value;
     }
