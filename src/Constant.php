@@ -3,5 +3,5 @@
 namespace Webdis;
 
 class Constant {
-    const VERSION = '0.0.4';
+    const VERSION = '0.0.5';
 }
