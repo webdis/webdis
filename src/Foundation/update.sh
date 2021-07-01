@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export WEBDIS_NEW_VERSION="0.0.5"
+export WEBDIS_NEW_VERSION="0.0.6-alpha"
 
 echo " "
 

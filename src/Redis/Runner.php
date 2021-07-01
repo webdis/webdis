@@ -3,6 +3,7 @@
 namespace Webdis\Redis;
 
 use Predis\Client;
+use Webdis\Constant;
 use Webdis\Redis\Exceptions\IncorrectArgumentType;
 use Webdis\Redis\Exceptions\ToManyArgumentsException;
 
@@ -47,24 +48,9 @@ class Runner {
 
         $command = strtoupper($args[0]);
 
-        $exists = match ($command) {
-            'GET', 'SET', 'KEYS', 'SADD' => true,
-            default => false,
-        };
-
-        if($exists == false)
-        {
-            return false;
-        }
-
         $method = $this->getMethod($command);
-
-        if($method == 'nomethod'){
-            // return false;
-            throw new \Exception('method not found');
-        }
-
-        $result = $this->{$command}($args);
+        
+        $result = $this->{$method}($args);
 
         return $result;
     }
@@ -266,8 +252,14 @@ class Runner {
         return $result;
     }
 
-    private function nomethod()
+    private function nomethod(array $args)
     {
-        throw new \Exception('Not a valid method:' . $args[0]);
+        $this->lastRowsReturned['amountReturned'] = 0;
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $this->lastRowsReturned['actionType'] = "Affected";
+
+        return "The command " . strtoupper($args[0]) . " either does not exist or is not yet available in Webdis Version " . Constant::VERSION;
     }
 }

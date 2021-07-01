@@ -4,7 +4,7 @@ echo Updating Webdis...
 
 sleep 1
 
-export WEBDIS_CURRENT_VERSION="0.0.5"
+export WEBDIS_CURRENT_VERSION="0.0.6-alpha"
 
 echo Pulling the new version of Webdis...
 
