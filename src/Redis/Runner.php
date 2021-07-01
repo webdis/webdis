@@ -8,7 +8,7 @@ use Webdis\Redis\Exceptions\ToManyArgumentsException;
 
 class Runner {
 
-    private Client $client;
+    private $client;
 
     private bool $error = false;
 
@@ -21,11 +21,11 @@ class Runner {
     /**
      * Run a redis command simply and easily through here. 
      * 
-     * @param Client $client
+     * @param $client
      * @param array|string $args
      * @return mixed
      */
-    public function __construct(Client $client)
+    public function __construct($client)
     {
         $this->client = $client;
     }

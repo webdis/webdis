@@ -13,25 +13,41 @@ class Controller extends BaseController
 {
     private $request;
 
-    public function getClient() : Client
+    public function getClient() : Client|\Redis
     {
-        if(Session::get('require_password'))
+        if(config('redis.client') == 'ext')
         {
-            $client = new Client([
-                'scheme' => 'tcp',
-                'host' => Session::get('host'),
-                'port' => Session::get('port'),
-                'password' => Session::get('password')
-            ]);
+            $client = new \Redis();
+
+            if(Session::get('require_password'))
+            {
+
+                $client->connect(Session::get('host'), Session::get('port'), ['auth' => [Session::get('password')]]);
+            }
+            else
+            {
+                $client->connect(Session::get('host'), Session::get('port'));
+            }
         }
         else{
-            $client = new Client([
-                'scheme' => 'tcp',
-                'host' => Session::get('host'),
-                'port' => Session::get('port'),
-            ]);
+            if(Session::get('require_password'))
+            {
+                $client = new Client([
+                    'scheme' => 'tcp',
+                    'host' => Session::get('host'),
+                    'port' => Session::get('port'),
+                    'password' => Session::get('password')
+                ]);
+            }
+            else{
+                $client = new Client([
+                    'scheme' => 'tcp',
+                    'host' => Session::get('host'),
+                    'port' => Session::get('port'),
+                ]);
+            }
+        
         }
-
         return $client;
         
     }
