@@ -65,6 +65,8 @@ class Runner {
             'KEYS' => 'keys',
             'GET' => 'get',
             'SET' => 'set',
+            'INCR' => 'incr',
+            'DECR' => 'decr',
             'SADD'=> 'sadd',
             'APPEND' => 'append',
             'FLUSHALL' => 'flushall',
@@ -170,12 +172,12 @@ class Runner {
 
         if($argsCountCheck != 2){
             $argsCountCheckCount = $argsCountCheck - 1;
-            throw new ToManyArgumentsException('KEYS expecs one argument, got '.$argsCountCheckCount.'.');
+            throw new ToManyArgumentsException('GET expecs one argument, got '.$argsCountCheckCount.'.');
         }
 
         if(!is_string($args[1]))
         {
-            throw new IncorrectArgumentType('KEYS expect argument to be string, got '.gettype($args).'.');
+            throw new IncorrectArgumentType('GET expect argument to be string, got '.gettype($args).'.');
         }
 
         $key = str_replace('"', "", str_replace("'", "", $args[1]));
@@ -236,6 +238,58 @@ class Runner {
         $value = str_replace('"', "", str_replace("'", "", $array));
 
         return $this->client->append($name, $value);
+    }
+
+    private function incr(array $args)
+    {
+        $argsCountCheck = count($args);
+
+        $key = str_replace('"', "", str_replace("'", "", $args[1]));
+
+        if($this->client->get($key) != null)
+        {
+            $this->lastRowsReturned['amountReturned'] = 1;
+        }
+        else
+        {
+            $this->lastRowsReturned['amountReturned'] = 0;
+        }
+
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $this->client->incr($key);
+
+        return $this->client->get($key);
+    }
+
+    private function decr(array $args)
+    {
+        $argsCountCheck = count($args);
+
+        $key = str_replace('"', "", str_replace("'", "", $args[1]));
+
+        if($this->client->get($key) != null)
+        {
+            $this->lastRowsReturned['amountReturned'] = 1;
+        }
+        else
+        {
+            $this->lastRowsReturned['amountReturned'] = 0;
+        }
+
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $this->client->decr($key);
+
+        return $this->client->get($key);
     }
 
     /**
