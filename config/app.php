@@ -24,4 +24,9 @@ return [
      * The filp/whoops pretty handler, which shows exceptions.
      */
     'forcewhoops' => env('WEBDIS_FORCE_WHOOPS', false),
+
+    /**
+     * This is set to true by default. This disables the FLUSHALL command.
+     */
+    'disable-flushall' => env('WEBDIS_DISABLE_FLUSHALL', true),
 ];

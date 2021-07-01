@@ -45,6 +45,6 @@ sleep 2
 
 echo Webdis has been updated!
 echo "This update includes the following new features:"
-echo "No new features"
+echo " - Added the FLUSHALL and APPEND commands, However FLUSHALL is disabled by default."
 echo "This update includes the following new bug fixes:"
-echo " - Fixed dashboard displaying all types as unsupported"
+echo " - Fixed issue with SADD sometimes not working correctly"
