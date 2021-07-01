@@ -48,7 +48,7 @@ class Runner {
         $command = strtoupper($args[0]);
 
         $exists = match ($command) {
-            'GET', 'SET', 'KEYS' => true,
+            'GET', 'SET', 'KEYS', 'SADD' => true,
             default => false,
         };
 
@@ -59,8 +59,9 @@ class Runner {
 
         $method = $this->getMethod($command);
 
-        if($method === 'nomethod'){
-            return false;
+        if($method == 'nomethod'){
+            // return false;
+            throw new \Exception('method not found');
         }
 
         $result = $this->{$command}($args);
@@ -105,19 +106,44 @@ class Runner {
         return $this->errors;
     }
 
-    private function sadd(array $args)
+    private function sadd(array $args) : string
     {
         $name = $args[1];
 
+        unset($args[1]);
         unset($args[0]);
 
-        call_user_func_array(array($this->client, "sadd"), $args);
+        $created = 0;
+        foreach($args as $value)
+        {
+            $this->client->sAdd($name, $value);
+            $created++;
+        }
 
-        $this->lastRowsReturned['amountReturned'] = $this->client->scard($name);
+        // call_user_func_array(array($this->client, "sadd"), $args);
 
-        $this->lastRowsReturned['affected'] = count($args);
+        $this->lastRowsReturned['amountReturned'] = $created;
 
-        return 'added';
+        $this->lastRowsReturned['affected'] = $created;
+
+        $result = 'Successfully added: ';
+
+        $items = $created;
+
+        foreach($args as $value)
+        {
+            if($items == 1){
+                $result = $result . 'and ' . $value . ' to the set: ' . $name;
+            }
+            else{
+                $result = $result . $value . ', ';
+            }
+
+            $items = $items - 1;
+
+        }
+
+        return $result;
     }
 
     /**
@@ -170,7 +196,14 @@ class Runner {
             throw new IncorrectArgumentType('KEYS expect argument to be string, got '.gettype($args).'.');
         }
 
-        $this->lastRowsReturned['amountReturned'] = 1;
+        if($this->client->get($args[1]) != null)
+        {
+            $this->lastRowsReturned['amountReturned'] = 1;
+        }
+        else
+        {
+            $this->lastRowsReturned['amountReturned'] = 0;
+        }
 
         $this->lastRowsReturned['affected'] = 0;
 

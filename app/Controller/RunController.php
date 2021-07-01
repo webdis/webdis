@@ -24,6 +24,11 @@ class RunController extends Controller
 
         $result = $runner->run($args);
 
+        if($result == false)
+        {
+            // method probably doesn't exist.
+        }
+
         $lastRows = $runner->lastRows();
 
         $array = explode(' ' , $args);
