@@ -62,7 +62,28 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             @foreach($client->keys('*') as $key)
-            @if($client->type($key) == 'string')
+            @php
+              if(config('redis.client') == 'predis')
+              {
+                $type = $client->type($key);
+              }
+              else
+              {
+                if(extension_loaded('redis'))
+                {
+                  $getFromRedis = $client->type($key);
+                  $type = match($getFromRedis){
+                    \Redis::REDIS_STRING => 'string',
+                    \Redis::REDIS_SET => 'set',
+                    \Redis::REDIS_LIST => 'list',
+                    \Redis::REDIS_ZSET => 'zset',
+                    \Redis::REDIS_HASH => 'hash',
+                    default => 'type_not_found'
+                  };
+                }
+              }
+            @endphp
+            @if($type == 'string')
               <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                   {{ $key }}
@@ -78,7 +99,7 @@
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
-              @elseif($client->type($key) == 'set')
+              @elseif($type == 'set')
               <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                   {{ $key }}
@@ -95,7 +116,7 @@
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                 </td>
               </tr>
-              @elseif($client->type($key) == 'zset')
+              @elseif($type == 'zset')
               <tr>
                 <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                   {{ $key }}
@@ -121,8 +142,8 @@
                   Unsupported Type
                 </td>
                 
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                  {{ ucfirst($client->type($key)) }}
+                <td class="px-6 py-4 text-sm text-gry-500 whitespace-nowrap">
+                  {{ ucfirst($type) }}
                 </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                   <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
