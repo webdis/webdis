@@ -66,6 +66,7 @@ class Runner {
             'GET' => 'get',
             'SET' => 'set',
             'SADD'=> 'sadd',
+            'APPEND' => 'append',
             default => 'nomethod'
         };
 
@@ -172,6 +173,7 @@ class Runner {
     {
         $name = $args[1];
 
+        unset($args[1]);
         unset($args[0]);
 
         $this->lastRowsReturned['amountReturned'] = 1;
@@ -191,6 +193,7 @@ class Runner {
     {
         $name = $args[1];
 
+        unset($args[1]);
         unset($args[0]);
 
         $this->lastRowsReturned['amountReturned'] = 1;
