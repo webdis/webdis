@@ -33,6 +33,21 @@ class ViewController extends Controller
 
         $type = $client->type($key);
 
+        if(is_int($type))
+        {
+            if(extension_loaded('redis'))
+                {
+                  $type = match($type){
+                    \Redis::REDIS_STRING => 'string',
+                    \Redis::REDIS_SET => 'set',
+                    \Redis::REDIS_LIST => 'list',
+                    \Redis::REDIS_ZSET => 'zset',
+                    \Redis::REDIS_HASH => 'hash',
+                    default => 'type_not_found'
+                  };
+                }
+        }
+
         if($type == 'string')
         {
             $value = $client->get($key);

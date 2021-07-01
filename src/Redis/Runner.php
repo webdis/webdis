@@ -56,8 +56,10 @@ class Runner {
     }
 
     /**
-     * Allows us to figure out what 
-     * 
+     * Gets the command's method that we have created.
+     *
+     * @param string $command
+     * @return string
      */
     private function getMethod(string $command) : string
     {
@@ -68,16 +70,48 @@ class Runner {
             'SET' => 'set',
             'INCR' => 'incr',
             'DECR' => 'decr',
+            'INCRBY' => 'incrby',
+            'DECRBY' => 'decrby',
             'GETRANGE' => 'getrange',
             'GETSET' => 'getset',
             'SADD'=> 'sadd',
             'GETDEL' => 'getdel',
             'APPEND' => 'append',
             'FLUSHALL' => 'flushall',
+            // 'incompatible' => 'incompatible',
             default => 'nomethod'
         };
 
         return $method;
+    }
+
+    /**
+     * Checks if the client can handle the current command.
+     *
+     * @param string $command
+     * @param string $client
+     * @return boolean
+     */
+    private function compatible(string $command, string $client = 'predis') : bool
+    {
+        if($client == 'predis')
+        {
+            $compatible = match($command)
+            {
+                'KEYS', 'DEL', 'SET', 'INCR', 'DECR', 'GETRANGE', 'SADD', 'GET', 'GETDEL', 'APPEND', 'FLUSHALL' => true,
+                default => false
+            };
+        }
+        else
+        {
+            $compatible = match($command)
+            {
+                'KEYS', 'DEL', 'SET', 'INCR', 'DECR', 'GETRANGE', 'SADD', 'GET', 'GETDEL', 'APPEND', 'FLUSHALL' => true,
+                default => false
+            };
+        }
+
+        return $compatible;
     }
 
     /**
@@ -119,6 +153,12 @@ class Runner {
      * These are the KEYS group
      */
 
+    /**
+     * Returns all the selected KEYS.
+     *
+     * @param array $args
+     * @return array
+     */
     private function keys(array $args) : array
     {
         $argsCountCheck = count($args);
@@ -142,7 +182,13 @@ class Runner {
         return $this->client->keys($args[1]);
     }
 
-    private function del(array $args)
+    /**
+     * Deleted the selected KEY.
+     *
+     * @param array $args
+     * @return string
+     */
+    private function del(array $args) : string
     {
         $argsCountCheck = count($args);
 
