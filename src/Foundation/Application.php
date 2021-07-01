@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection as RoutingRouteCollection;
-use Webdis\Cache\CacheConfig;
 use Webdis\Cache\DevCache;
 use Webdis\Controller\Response as ControllerResponse;
 use Webdis\Demo\InitializeDemo;
