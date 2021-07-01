@@ -50,7 +50,8 @@
                         </svg>
                 </div>
                 <p class="pt-2 text-3xl font-bold text-center md:text-4xl">Error @yield('code') | @yield('message')</p>
-                <p class="text-2xl font-light text-center md:text-3xl">Webdis Version {{ \Webdis\Constant::VERSION }}</p>
+                <p class="text-2xl font-light text-center md:text-3xl">Webdis Version {{ \Webdis\Constant::VERSION }} <span class="font-semibold">|</span> <a class="text-black hover:text-gray-800" href="/">Go Home</a></p>
+                
             </div>
         </div>
     </body>
