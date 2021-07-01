@@ -106,46 +106,6 @@ class Runner {
         return $this->errors;
     }
 
-    private function sadd(array $args) : string
-    {
-        $name = $args[1];
-
-        unset($args[1]);
-        unset($args[0]);
-
-        $created = 0;
-        foreach($args as $value)
-        {
-            $this->client->sAdd($name, $value);
-            $created++;
-        }
-
-        // call_user_func_array(array($this->client, "sadd"), $args);
-
-        $this->lastRowsReturned['amountReturned'] = $created;
-
-        $this->lastRowsReturned['affected'] = $created;
-
-        $result = 'Successfully added: ';
-
-        $items = $created;
-
-        foreach($args as $value)
-        {
-            if($items == 1){
-                $result = $result . 'and ' . $value . ' to the set: ' . $name;
-            }
-            else{
-                $result = $result . $value . ', ';
-            }
-
-            $items = $items - 1;
-
-        }
-
-        return $result;
-    }
-
     /**
      * Returns the command that caused an error
      * 
@@ -177,10 +137,16 @@ class Runner {
 
         $this->lastRowsReturned['amountReturned'] = count($this->client->keys($args[1]));
 
+        $this->lastRowsReturned['actionType'] = "Returned";
+
         $this->lastRowsReturned['affected'] = 0;
 
         return $this->client->keys($args[1]);
     }
+
+    /**
+     * These are the STRING group commands.
+     */
 
     private function get(array $args)
     {
@@ -196,7 +162,9 @@ class Runner {
             throw new IncorrectArgumentType('KEYS expect argument to be string, got '.gettype($args).'.');
         }
 
-        if($this->client->get($args[1]) != null)
+        $key = str_replace('"', "", str_replace("'", "", $args[1]));
+
+        if($this->client->get($key) != null)
         {
             $this->lastRowsReturned['amountReturned'] = 1;
         }
@@ -205,9 +173,13 @@ class Runner {
             $this->lastRowsReturned['amountReturned'] = 0;
         }
 
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        
+
         $this->lastRowsReturned['affected'] = 0;
 
-        return $this->client->get($args[1]);
+        return $this->client->get($key);
     }
 
     private function set(array $args)
@@ -220,11 +192,78 @@ class Runner {
 
         $this->lastRowsReturned['affected'] = 0;
 
+        $this->lastRowsReturned['actionType'] = "Created";
+
         $array = implode(' ', $args);
 
         $value = str_replace('"', "", str_replace("'", "", $array));
 
         return $this->client->set($name, $value);
+    }
+
+    private function append(array $args)
+    {
+        $name = $args[1];
+
+        unset($args[0]);
+
+        $this->lastRowsReturned['amountReturned'] = 1;
+
+        $this->lastRowsReturned['affected'] = 1;
+
+        $this->lastRowsReturned['actionType'] = "Appended";
+        
+        $array = implode(' ', $args);
+        
+        $value = str_replace('"', "", str_replace("'", "", $array));
+
+        return $this->client->append($name, $value);
+    }
+
+    /**
+     * These are the Set Commands.
+     */
+
+    private function sadd(array $args) : string
+    {
+        $name = $args[1];
+
+        unset($args[1]);
+        unset($args[0]);
+
+        $created = 0;
+        foreach($args as $value)
+        {
+            $this->client->sAdd($name, $value);
+            $created++;
+        }
+
+        // call_user_func_array(array($this->client, "sadd"), $args);
+
+        $this->lastRowsReturned['amountReturned'] = $created;
+
+        $this->lastRowsReturned['affected'] = $created;
+
+        $this->lastRowsReturned['actionType'] = "Created";
+
+        $result = 'Successfully added: ';
+
+        $items = $created;
+
+        foreach($args as $value)
+        {
+            if($items == 1){
+                $result = $result . 'and ' . $value . ' to the set: ' . $name;
+            }
+            else{
+                $result = $result . $value . ', ';
+            }
+
+            $items = $items - 1;
+
+        }
+
+        return $result;
     }
 
     private function nomethod()

@@ -12,11 +12,7 @@
                     Running: {{$command}}
                 </div>
                 <div class="text-xl text-right md:text-2xl">
-                    @if($commandDoes == "return")
-                        Returned <span class="font-semibold">{{ $lastRows['amountReturned'] }}</span> Keys
-                    @elseif($commandDoes = "create")
-                        Created <span class="font-semobold">{{ $lastRows['amountReturned'] }} Key(s)
-                    @endif
+                        {{ $lastRows['actionType'] }} <span class="font-semibold">{{ $lastRows['amountReturned'] }}</span> Keys
                 </div>
             </div>
         </div>
