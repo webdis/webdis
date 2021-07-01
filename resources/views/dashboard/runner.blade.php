@@ -12,7 +12,7 @@
                     Running: {{$command}}
                 </div>
                 <div class="text-xl text-right md:text-2xl">
-                        {{ $lastRows['actionType'] }} <span class="font-semibold">{{ $lastRows['amountReturned'] }}</span> Keys
+                        {{ $lastRows['actionType'] }} <span class="font-semibold">{{ $lastRows['amountReturned'] }}</span> Keys/Values
                 </div>
             </div>
         </div>
