@@ -63,11 +63,13 @@ class Runner {
     {
         $method = match ($command) {
             'KEYS' => 'keys',
+            'DEL' => 'del',
             'GET' => 'get',
             'SET' => 'set',
             'INCR' => 'incr',
             'DECR' => 'decr',
             'SADD'=> 'sadd',
+            'GETDEL' => 'getdel',
             'APPEND' => 'append',
             'FLUSHALL' => 'flushall',
             default => 'nomethod'
@@ -136,6 +138,26 @@ class Runner {
         $this->lastRowsReturned['affected'] = 0;
 
         return $this->client->keys($args[1]);
+    }
+
+    private function del(array $args)
+    {
+        $argsCountCheck = count($args);
+
+        if($argsCountCheck != 2){
+            $argsCountCheckCount = $argsCountCheck - 1;
+            throw new ToManyArgumentsException('DEL expecs one argument, got '.$argsCountCheckCount.'.');
+        }
+
+        $this->lastRowsReturned['amountReturned'] = count($this->client->keys($args[1]));
+
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $this->client->del($args[1]);
+
+        return 'Deleted key: ' . $args[1];
     }
 
     private function flushall(array $args) : string
@@ -238,6 +260,44 @@ class Runner {
         $value = str_replace('"', "", str_replace("'", "", $array));
 
         return $this->client->append($name, $value);
+    }
+
+    private function getdel(array $args)
+    {
+        $argsCountCheck = count($args);
+
+        if($argsCountCheck != 2){
+            $argsCountCheckCount = $argsCountCheck - 1;
+            throw new ToManyArgumentsException('GET expecs one argument, got '.$argsCountCheckCount.'.');
+        }
+
+        if(!is_string($args[1]))
+        {
+            throw new IncorrectArgumentType('GET expect argument to be string, got '.gettype($args).'.');
+        }
+
+        $key = str_replace('"', "", str_replace("'", "", $args[1]));
+
+        if($this->client->get($key) != null)
+        {
+            $this->lastRowsReturned['amountReturned'] = 1;
+        }
+        else
+        {
+            $this->lastRowsReturned['amountReturned'] = 0;
+        }
+
+        $this->lastRowsReturned['actionType'] = "Returned Then Deleted";
+
+        
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $value = $this->client->get($key);
+
+        $this->client->del($key);
+
+        return $value;
     }
 
     private function incr(array $args)
