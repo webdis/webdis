@@ -2,6 +2,10 @@
 
 export WEBDIS_NEW_VERSION="0.0.5"
 
+echo " "
+
+sleep 2
+
 if [ "$(printf '%s\n' "$WEBDIS_NEW_VERSION" "$WEBDIS_CURRENT_VERSION" | sort -V | head -n1)" = "$WEBDIS_NEW_VERSION" ]; then 
         echo "Already using the lastest version."
         echo "Version ${WEBDIS_NEW_VERSION} == ${WEBDIS_CURRENT_VERSION}"
@@ -37,7 +41,7 @@ echo Resetting Caches
 php bin/console.php config:cache
 php bin/console.php view:reset
 
-sleep(2)
+sleep 2
 
 echo Webdis has been updated!
 echo "This update includes the following new features:"
