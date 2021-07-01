@@ -67,6 +67,7 @@ class Runner {
             'SET' => 'set',
             'SADD'=> 'sadd',
             'APPEND' => 'append',
+            'FLUSHALL' => 'flushall',
             default => 'nomethod'
         };
 
@@ -108,6 +109,10 @@ class Runner {
         return $this->lastRowsReturned;
     }
 
+    /**
+     * These are the KEYS group
+     */
+
     private function keys(array $args) : array
     {
         $argsCountCheck = count($args);
@@ -129,6 +134,30 @@ class Runner {
         $this->lastRowsReturned['affected'] = 0;
 
         return $this->client->keys($args[1]);
+    }
+
+    private function flushall(array $args) : string
+    {
+        if(!'app.demo'){
+        $this->lastRowsReturned['amountReturned'] = count($this->client->keys("*"));
+
+        $this->lastRowsReturned['actionType'] = "Deleted";
+
+        $this->lastRowsReturned['affected'] = "ALL";
+
+        $this->client->flushAll();
+
+        return 'DELETED ALL KEYS.';
+        }
+        else {
+            $this->lastRowsReturned['amountReturned'] = 0;
+
+            $this->lastRowsReturned['actionType'] = "Deleted";
+
+            $this->lastRowsReturned['affected'] = 0;
+
+            return 'Demo Mode activated. Cannot delete all keys. But, you can delete individually';
+        }
     }
 
     /**
