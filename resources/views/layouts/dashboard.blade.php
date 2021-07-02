@@ -30,7 +30,7 @@
         </script>
         @endif
     </head>
-    <body class="min-h-screen bg-gray-50">
+    <body class="min-h-screen bg-gray-50 dark:bg-gray-800">
         @component('navbar')
 
         <div class="min-h-screen py-2 mx-auto max-w-7xl">

@@ -1,11 +1,11 @@
-<header class="bg-white shadow-sm lg:static lg:overflow-y-visible" x-data="{ mobileMenu: false, dropMenu: false }">
+<header class="bg-white shadow-sm dark:bg-gray-900 lg:static lg:overflow-y-visible" x-data="{ mobileMenu: false, dropMenu: false }">
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
         <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
           <div class="flex items-center flex-shrink-0">
             <a href="/dashboard" class="flex">
               <img class="block w-auto h-8" src="/img/webdis.svg" alt="Workflow">
-              <p class="self-center ml-2 text-xl font-bold">Webdis</p>
+              <p class="self-center ml-2 text-xl font-bold dark:text-gray-50">Webdis</p>
             </a>
           </div>
         </div>
@@ -15,13 +15,13 @@
               <form method="POST" action="/run">
                 <label for="command" class="sr-only">Run Command</label>
                 <div class="relative">
-                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none dark:bg-gray-900">
                     <!-- Heroicon name: solid/search -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400 dark:text-gray-200" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                   </div>
-                  <input id="command" name="command" class="block w-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Run Command" type="text" required>
+                  <input id="command" name="command" class="block w-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 bg-white border border-gray-300 rounded-md dark:bg-gray-900 dark:focus:ring-0 dark:focus:ring-transparent dark:text-gray-50 dark:focus:text-gray-300 dark:border-gray-900 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Run Command" type="text" required>
                 </div>
               </form>
             </div>
@@ -58,9 +58,9 @@
           <!-- Profile dropdown -->
           <div class="relative flex-shrink-0 ml-5">
             <div>
-              <button type="button" class="flex bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true" @click="dropMenu = ! dropMenu">
+              <button type="button" class="flex bg-white rounded-full dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true" @click="dropMenu = ! dropMenu">
                 <span class="sr-only">Open user menu</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 p-2 text-gray-800 bg-green-500 rounded-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 p-2 bg-green-600 rounded-full dark:bg-green-400 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </button>
@@ -76,17 +76,17 @@
                 From: "transform opacity-100 scale-100"
                 To: "transform opacity-0 scale-95"
             -->
-            <div class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="dropMenu" @click.away="dropMenu = false" x-cloak>
+            <div class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="dropMenu" @click.away="dropMenu = false" x-cloak>
               <!-- Active: "bg-gray-100", Not Active: "" -->
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
   
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
               
-              <a href="https://elijahcruz12.gitbook.io/webdis-documentation/" target="_blank" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Documentation</a>
+              <a href="https://elijahcruz12.gitbook.io/webdis-documentation/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-1">Documentation</a>
               
   
               <form action="/logout" method="POST">
-                <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
               </form>
             </div>
           </div>
