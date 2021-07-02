@@ -33,6 +33,23 @@ if(empty(session_id())){
     Session::start();
 }
 
+// dd($_SESSION);
+
+try {
+    $pageCache = new PageCache\PageCache();
+    $pageCache->config()
+                    ->setCachePath(dirname(__DIR__) . '/storage/cache/pagecache/')
+                    ->setEnableLog(true)
+                    ->setLogFilePath(dirname(__DIR__) . '/storage/logs/pagecache.log')
+                    ->setUseSession(true)
+                    ->setSessionExcludeKeys(['logged_in', '__flash', '__previous', '__current', 'generated', 'debug', 'debugbar', 'debugbar_renderer', 'require_password', 'PHPDEBUGBAR_STACK_DATA'])
+                    ->setSendHeaders(true)
+                    ->setCacheExpirationInSeconds(3);
+    $pageCache->init();
+} catch (\Exception $e) {
+    echo $e->getMessage();
+}
+
 $whoops = new \Whoops\Run;
 
 if(config('app.debug'))

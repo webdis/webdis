@@ -47,7 +47,8 @@
         "maximebf/debugbar": "^1.16",
         "dflydev/dot-access-data": "^3.0",
         "monolog/monolog": "^2.2",
-        "jenssegers/agent": "^2.6"
+        "jenssegers/agent": "^2.6",
+        "mmamedov/page-cache": "^2.0"
     },
     "require-dev": {
         "larapack/dd": "^1.1",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f160da7a110505b46af39cdcc98f8879",
+    "content-hash": "90f0bbd01e270006bb35adad941cd5ba",
     "packages": [
         {
             "name": "delight-im/cookie",
@@ -1198,6 +1198,74 @@
                 "source": "https://github.com/maximebf/php-debugbar/tree/v1.16.5"
             },
             "time": "2020-12-07T11:07:24+00:00"
+        },
+        {
+            "name": "mmamedov/page-cache",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mmamedov/page-cache.git",
+                "reference": "8b41cea121c3687b2e485bd9ab17ed4ede222754"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mmamedov/page-cache/zipball/8b41cea121c3687b2e485bd9ab17ed4ede222754",
+                "reference": "8b41cea121c3687b2e485bd9ab17ed4ede222754",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "psr/log": "^1.0",
+                "psr/simple-cache": "^1.0"
+            },
+            "require-dev": {
+                "cache/integration-tests": "dev-master",
+                "guzzlehttp/guzzle": "^6.3",
+                "mikey179/vfsstream": "^1.6",
+                "mobiledetect/mobiledetectlib": "^2.8",
+                "monolog/monolog": "^1.23",
+                "phpunit/phpunit": "^5",
+                "symfony/cache": "^3.4 || ^4.0",
+                "symfony/process": "^3.4 || ^4.0"
+            },
+            "suggest": {
+                "mobiledetect/mobiledetectlib": "Allows separate cache versions for mobile pages",
+                "monolog/monolog": "Allows using monolog for logging"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PageCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammed Mamedov",
+                    "email": "mm@turkmenweb.net",
+                    "homepage": "http://www.turkmenweb.com/en/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PageCache is a lightweight PHP library for full page cache. It uses various strategies to differentiate among separate versions of the same page.",
+            "homepage": "https://github.com/mmamedov/page-cache",
+            "keywords": [
+                "cache",
+                "caching",
+                "file based cache",
+                "full page cache",
+                "page cache",
+                "php cache",
+                "php page cache"
+            ],
+            "support": {
+                "issues": "https://github.com/mmamedov/page-cache/issues",
+                "source": "https://github.com/mmamedov/page-cache/tree/master"
+            },
+            "time": "2018-04-01T16:00:53+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
