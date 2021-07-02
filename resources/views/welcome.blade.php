@@ -3,25 +3,25 @@
 @section('title', 'Welcome')
 
 @section('content')
-<div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 sm:px-6 lg:px-8">
+<div class="flex flex-col justify-center min-h-screen py-12 bg-gray-50 dark:bg-gray-800 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <img class="w-auto h-12 mx-auto" src="@asset('/img/webdis.svg')" alt="Webdis">
-      <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
+      <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900 dark:text-gray-50">
         Webdis
       </h2>
-      <p class="mt-2 text-sm text-center text-gray-600">
+      <p class="mt-2 text-sm text-center text-gray-600 dark:text-gray-300">
         The Admin Web App For Redis
       </p>
-      <p class="mt-2 text-xs text-center text-gray-600">
+      <p class="mt-2 text-xs text-center text-gray-600 dark:text-gray-300">
         Version {{ $version }}
       </p>
     </div>
   
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+      <div class="px-4 py-8 bg-white shadow dark:bg-gray-700 sm:rounded-lg sm:px-10">
 
         @if(isset($hasErrors) && $hasErrors == true)
-          <div class="prose">
+          <div class="prose dark:text-gray-400">
             <p>There were errors in your form</p>
             <ul class="text-red-600">
               @foreach($errors as $error)
@@ -35,7 +35,7 @@
 
         <form class="space-y-6" action="/" method="POST">
           <div>
-            <label for="host" class="block text-sm font-medium text-gray-700">
+            <label for="host" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Host
             </label>
             <div class="mt-1">
@@ -44,7 +44,7 @@
           </div>
 
           <div>
-            <label for="port" class="block text-sm font-medium text-gray-700">
+            <label for="port" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Port
             </label>
             <div class="mt-1">
@@ -53,7 +53,7 @@
           </div>
   
           <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Password
             </label>
             <div class="mt-1">
