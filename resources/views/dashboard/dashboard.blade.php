@@ -101,53 +101,53 @@
               </tr>
               @elseif($type == 'set')
               <tr>
-                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-50 whitespace-nowrap">
                   {{ $key }}
                 </td>
-                <td class="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   Has {{ $client->scard($key) }} Items
                 </td>
 
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   Set
                 </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                  <a href="/view?key={{ $key }}" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <a href="/view?key={{ $key }}" class="pr-2 text-indigo-600 dark:text-indigo-500 dark:hover:text-indigo-400 hover:text-indigo-900">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-500 dark:hover:text-indigo-400">Edit</a>
                 </td>
               </tr>
               @elseif($type == 'zset')
               <tr>
-                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-50 whitespace-nowrap">
                   {{ $key }}
                 </td>
-                <td class="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   Has {{ $client->zcard($key) }} Items
                 </td>
                 
-                <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   Sorted Set
                 </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900 dark:text-indigo-500 dark:hover:text-indigo-400">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-500 dark:hover:text-indigo-400">Edit</a>
                 </td>
               </tr>
               @else
               <tr>
-                <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-50 whitespace-nowrap">
                   {{ $key }}
                 </td>
-                <td class="px-6 py-4 text-sm font-bold text-gray-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm font-bold text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   Unsupported Type
                 </td>
                 
-                <td class="px-6 py-4 text-sm text-gry-500 whitespace-nowrap">
+                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
                   {{ ucfirst($type) }}
                 </td>
                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900">View</a>
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  <a href="#" class="pr-2 text-indigo-600 hover:text-indigo-900 dark:text-indigo-500 dark:hover:text-indigo-400">View</a>
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-500 dark:hover:text-indigo-400">Edit</a>
                 </tr>
               @endif
             @endforeach
