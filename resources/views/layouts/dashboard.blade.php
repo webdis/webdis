@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="dark">
     <head>
         @php
             if(\Delight\Cookie\Session::get('debug'))

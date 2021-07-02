@@ -3,7 +3,7 @@ module.exports = {
     './resources/**/*.blade.php',
     './resources/**/*.js',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // Is set to class so that way it can be tested on non-darkmode capable devices, like Desktop Chrome
   theme: {
     extend: {},
   },

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="dark">
     <head>
         <title>@yield('title') - Webdis</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
