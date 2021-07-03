@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="dark">
+<html>
     <head>
         <title>Whoops! Error @yield('code')</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
