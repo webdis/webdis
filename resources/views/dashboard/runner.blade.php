@@ -8,7 +8,7 @@
     <div class="overflow-hidden bg-white rounded-lg shadow dark:bg-gray-900">
         <div class="px-4 py-5 sm:p-6">
             <div class="flex w-full gap-x-4">
-                <div class="flex-1 text-2xl font-semibold truncate md:text-3xl text-gray-50">
+                <div class="flex-1 text-2xl font-semibold text-gray-900 truncate md:text-3xl dark:text-gray-50">
                     Running: {{$command}}
                 </div>
                 <div class="text-xl text-right dark:text-gray-200 md:text-2xl">
