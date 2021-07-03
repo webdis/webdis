@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+@if(\Delight\Cookie\Cookie::get('webdis_theme', 'light') == 'dark')
+<html class="dark" lang="en">
+@else
 <html>
+@endif
     <head>
         <title>Whoops! Error @yield('code')</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+@if(\Delight\Cookie\Cookie::get('webdis_theme', 'light') == 'dark')
+<html class="dark" lang="en">
+@else
 <html>
+@endif
     <head>
         @php
             if(\Delight\Cookie\Session::get('debug'))
