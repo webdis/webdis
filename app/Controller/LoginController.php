@@ -60,7 +60,7 @@ class LoginController extends Controller
                 }
                 else{
                     Session::set('require_password', true);
-                    Session::get('password', $request->request->get('password'));
+                    Session::set('password', $request->request->get('password'));
                 }
 
                 return new RedirectResponse('/dashboard');

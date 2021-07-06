@@ -19,14 +19,31 @@ class Controller extends BaseController
         {
             $client = new \Redis();
 
-            if(Session::get('require_password'))
-            {
+            if(config('redis.client') == 'predis'){
 
-                $client->connect(Session::get('host'), Session::get('port'), ['auth' => [Session::get('password')]]);
+                if(Session::get('require_password'))
+                {
+                    
+                    $client->connect(Session::get('host'), Session::get('port'), ['auth' => [Session::get('password')]]);
+                }
+                else
+                {
+                    $client->connect(Session::get('host'), Session::get('port'));
+                }
+
             }
+
             else
             {
-                $client->connect(Session::get('host'), Session::get('port'));
+                if(Session::get('require_password'))
+                {
+                    $client->connect(Session::get('host'), Session::get('port'));
+                    $client->auth(Session::get('password'));
+                }
+                else
+                {
+                    $client->connect(Session::get('host'), Session::get('port'));
+                }
             }
         }
         else{
