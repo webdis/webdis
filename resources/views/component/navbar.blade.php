@@ -98,10 +98,7 @@
         <a href="/dashboard" aria-current="page" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Dashboard</a>
   
         <a href="/run" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Run Command</a>
-
-        <form action="/logout" method="POST">
-          <button type="submit" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Sign out</button>
-        </form>
+        
       </div>
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center max-w-3xl px-4 mx-auto sm:px-6">
