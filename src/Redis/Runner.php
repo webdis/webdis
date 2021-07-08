@@ -78,6 +78,7 @@ class Runner {
             'GETDEL' => 'getdel',
             'APPEND' => 'append',
             'FLUSHALL' => 'flushall',
+            'PING' => 'ping',
             // 'incompatible' => 'incompatible',
             default => 'nomethod'
         };
@@ -147,6 +148,49 @@ class Runner {
     public function lastRows(): array
     {
         return $this->lastRowsReturned;
+    }
+
+    private function ping(array $args) : string
+    {
+        unset($args[0]);
+
+        if(count($args) != 0)
+        {
+            $args = implode(' ', $args);
+        }
+        else
+        {
+            $args = null;
+        }
+
+        $this->lastRowsReturned['amountReturned'] = 0;
+
+        $this->lastRowsReturned['actionType'] = "Returned";
+
+        $this->lastRowsReturned['affected'] = 0;
+
+        $result = $this->client->ping($args);
+
+        if(config('redis.client') == 'ext')
+        {
+
+            if($args == null && $result == 1)
+            {
+                $result = "PONG";
+            }
+        }
+
+        else
+        {
+
+            if($args == null && $result == "")
+            {
+                $result = "PONG";
+            }
+
+        }
+
+        return $result;
     }
 
     /**
