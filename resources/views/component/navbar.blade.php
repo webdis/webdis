@@ -29,7 +29,7 @@
         </div>
         <div class="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
           <!-- Mobile menu button -->
-          <button type="button" class="inline-flex items-center justify-center p-2 -mx-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
+          <button type="button" class="inline-flex items-center justify-center p-2 -mx-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 dark:hover:bg-gray-800 dark:hover:text-gray-200" aria-expanded="false" @click="mobileMenu = !mobileMenu">
             <span class="sr-only">Open menu</span>
             <!--
               Icon when menu is closed.
@@ -38,7 +38,7 @@
   
               Menu open: "hidden", Menu closed: "block"
             -->
-            <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" x-show="!mobileMenu" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
             <!--
@@ -48,7 +48,7 @@
   
               Menu open: "block", Menu closed: "hidden"
             -->
-            <svg class="hidden w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" x-show="mobileMenu" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" x-cloak>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -77,10 +77,6 @@
                 To: "transform opacity-0 scale-95"
             -->
             <div class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white border border-gray-100 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" x-show="dropMenu" @click.away="dropMenu = false" x-cloak>
-              <!-- Active: "bg-gray-100", Not Active: "" -->
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-  
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
               
               <a href="https://elijahcruz12.gitbook.io/webdis-documentation/" target="_blank" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200" role="menuitem" tabindex="-1" id="user-menu-item-1">Documentation</a>
               
@@ -97,25 +93,31 @@
     </div>
   
     <!-- Mobile menu, show/hide based on menu state. -->
-    <nav class="lg:hidden" aria-label="Global">
+    <nav class="lg:hidden" aria-label="Global" x-show="mobileMenu" x-cloak>
       <div class="max-w-3xl px-2 pt-2 pb-3 mx-auto space-y-1 sm:px-4">
-        <!-- Current: "bg-gray-100 text-gray-900", Default: "hover:bg-gray-50" -->
-        <a href="#" aria-current="page" class="block px-3 py-2 text-base font-medium text-gray-900 bg-gray-100 rounded-md">Dashboard</a>
+        <a href="/dashboard" aria-current="page" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Dashboard</a>
   
-        <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50">Run Command</a>
+        <a href="/run" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Run Command</a>
+
+        <form action="/logout" method="POST">
+          <button type="submit" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-50 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Sign out</button>
+        </form>
       </div>
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center max-w-3xl px-4 mx-auto sm:px-6">
           <div class="ml-3">
-            <div class="text-base font-medium text-gray-800">Logged In To "tcp://{{ \Delight\Cookie\Session::get('host') }}:{{ \Delight\Cookie\Session::get('port') }}"</div>
-            <div class="text-sm font-medium text-gray-500">@if(\Delight\Cookie\Session::get('has_password')) With Password @else Without Password @endif</div>
+            <div class="text-base font-medium text-gray-800 dark:text-gray-100">Logged In To "tcp://{{ \Delight\Cookie\Session::get('host') }}:{{ \Delight\Cookie\Session::get('port') }}"</div>
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-400">@if(\Delight\Cookie\Session::get('has_password')) With Password @else Without Password @endif</div>
           </div>
         </div>
         <div class="max-w-3xl px-2 mx-auto mt-3 space-y-1 sm:px-4">
-          <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Settings</a>
+          <a href="https://elijahcruz12.gitbook.io/webdis-documentation/" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Documentation</a>
+
+          <button type="button" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800" id="darkmodetoggleMobile">Dark Mode</button>
+          
   
           <form method="POST" action="/logout">
-            <button href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900">Sign out</button>
+            <button href="#" class="block px-3 py-2 text-base font-medium text-gray-500 rounded-md hover:bg-gray-50 hover:text-gray-900 dark:text-gray-200 dark:hover:bg-gray-400 dark:hover:bg-gray-800">Sign out</button>
           </form>
         </div>
       </div>
