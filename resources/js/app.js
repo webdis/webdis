@@ -62,3 +62,40 @@ if(darkModeButton != null) {
     
   }
 }
+
+var darkModeButtonMobile = document.getElementById('darkmodetoggleMobile');
+
+if(darkModeButtonMobile != null) {
+  if(theme == 'light') {
+    darkModeButtonMobile.textContent = 'Enable Dark Mode';
+    console.log('Mobile Button Light');
+  }
+  else {
+    darkModeButtonMobile.textContent = 'Disable Dark Mode';
+    console.log('Mobile Button Dark');
+  }
+
+  darkModeButtonMobile.onclick = function() {
+  
+    darkModeBtnMobile = document.getElementById('darkmodetoggleMobile');
+  
+    var toggleTheme = window.localStorage.getItem('theme');  
+  
+     if(toggleTheme == 'light') {
+      window.localStorage.setItem('theme', 'dark');
+      document.documentElement.classList.add('dark');
+      document.cookie = "webdis_theme=dark; path=/";
+      darkModeBtnMobile.textContent = 'Disable Dark Mode';
+      console.log('Dark Mode Activate!');
+     }
+     else
+     {
+      window.localStorage.setItem('theme', 'light');
+      document.documentElement.classList.remove('dark');
+      document.cookie = "webdis_theme=light; path=/";
+      darkModeBtnMobile.textContent = 'Enable Dark Mode';
+      console.log('It\'s to bright!');
+     }
+    
+  }
+}
