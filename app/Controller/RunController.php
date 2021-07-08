@@ -43,4 +43,12 @@ class RunController extends Controller
 
         return $this->response($view->get());
     }
+
+    public function run_get()
+    {
+        $view = new View('dashboard.runget');
+
+        return $this->response($view->get());
+    }
+
 }
