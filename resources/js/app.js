@@ -16,12 +16,6 @@ if(theme == null) {
     document.cookie = "webdis_theme=light; path=/";
   }
 }
-
-window.addEventListener("load", () => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/servicesworker.js");
-    }
-  });
   
   // Dark mode capability
 

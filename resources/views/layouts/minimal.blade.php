@@ -21,6 +21,15 @@
     <body class="dark:bg-gray-800">
         @yield('content')
         <script src="@asset('/js/app.js')"></script>
+        @if(config('app.service-worker'))
+        <script>
+            window.addEventListener("load", () => {
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("/servicesworker.js");
+                }
+            });
+        </script>
+        @endif
 	<script src="@asset('/js/alpine.js')"></script>
     </body>
 </html>

@@ -21,13 +21,8 @@ if (theme == null) {
     document.cookie = "username=light";
     document.cookie = "webdis_theme=light; path=/";
   }
-}
+} // Dark mode capability
 
-window.addEventListener("load", function () {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/servicesworker.js");
-  }
-}); // Dark mode capability
 
 var darkModeButton = document.getElementById('darkmodetoggle');
 
