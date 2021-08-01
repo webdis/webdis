@@ -83,3 +83,18 @@ if(!function_exists('userInfo'))
         }
     }
 }
+
+if(!function_exists('isJson')){
+    function isJson(string $json)
+    {
+        $result = json_decode($json);
+
+        $error = match (json_last_error())
+        {
+            JSON_ERROR_NONE => true,
+            default => false
+        };
+
+        return $error;
+    }
+}
