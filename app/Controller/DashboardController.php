@@ -26,6 +26,18 @@ class DashboardController extends Controller
         return $this->response($view->get());
     }
 
+    public function about(){
+        $loggedIn = $this->getLoggedIn();
+
+        if(!$loggedIn) {
+            return new RedirectResponse('/');
+        }
+
+        $view = new View('special.about');
+
+        return $this->response($view->get());
+    }
+
     public function runCommand(){
 
     }

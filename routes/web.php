@@ -23,6 +23,9 @@ $routes->add('logout', new Route('/logout', ['LogoutController', 'logout'], ['PO
 // Dashboard
 $routes->add('dashboard', new Route('/dashboard', ['DashboardController', 'main']));
 
+// About
+$routes->add('about', new Route('/about', ['DashboardController', 'about']));
+
 // View
 $routes->add('view', new Route('/view', ['ViewController', 'show']));
 
