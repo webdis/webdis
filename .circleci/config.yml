@@ -16,7 +16,7 @@ jobs:
       # for database intensive operations.
       # - image: circleci/mysql:5.7-ram
       #
-      - image: redis:2.8.19
+      - image: redis:6.2.6
 
     steps:
       - checkout
