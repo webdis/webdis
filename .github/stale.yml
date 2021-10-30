@@ -1,0 +1,10 @@
+daysUntilStale: 14
+daysUntilClose: 7
+exemptLabels:
+    - pinned
+    - security
+    - dontstale
+staleLabel: stale
+markComment: >
+    This issue has been marked as stale because no replies have been given in 14 days. It will be closed after 7 days if there is no more activity.
+closeComment: true
