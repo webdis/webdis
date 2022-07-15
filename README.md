@@ -4,6 +4,8 @@ The Redis Administration Web App
 
 This project is not dead, I'm just working on a lot of stuff at the same time. Thanks for your patience.
 
+# The project is undergoing a rework. This is being done to ensure stability and to make the project more usable.
+
 ## About
 
 Webdis is a Redis Admin Web App, inspired by PHPMyAdmin. The idea came from wanting to be able to have a simpler interface for accessing Redis, instead of using redis-cli.
